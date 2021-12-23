@@ -9,7 +9,17 @@ const SignupModal = () => {
     password: "",
   };
 
+  const blankValidationErrors = {
+    emailAddress: null,
+    gamebuddyUsername: null,
+    warzoneUsername: null,
+  };
+
   const [signupValues, setSignupValues] = useState(blankSignupValues);
+
+  const [validationErrors, setValidationErrors] = useState(
+    blankValidationErrors
+  );
 
   const emailAddressHandler = (event) => {
     setSignupValues((previousSignupValues) => {
@@ -36,7 +46,6 @@ const SignupModal = () => {
   };
 
   const signupHandler = (event) => {
-    event.preventDefault();
     if (!JSON.parse(localStorage.getItem("storedSignupValues"))) {
       localStorage.setItem(
         "storedSignupValues",
@@ -46,17 +55,36 @@ const SignupModal = () => {
       const storedSignupValues = JSON.parse(
         localStorage.getItem("storedSignupValues")
       );
-      // il map giu serve per controllare che i parametri dello state non siano gia nello storage...
-      //metti un "if non ci sono" continui il code di giu, "if ci sono" dai un alert error message
       const valuesChecker = (item) => {
         if (item.emailAddress === signupValues.emailAddress) {
-          return alert("email already in use");
+          setValidationErrors((previousValidationErrors) => {
+            event.preventDefault();
+            return { ...previousValidationErrors, emailAddress: "error" };
+          });
+        } else {
+          setValidationErrors((previousValidationErrors) => {
+            return { ...previousValidationErrors, emailAddress: null };
+          });
         }
         if (item.gamebuddyUsername === signupValues.gamebuddyUsername) {
-          return alert("gamebuddyUsername already in use");
+          setValidationErrors((previousValidationErrors) => {
+            event.preventDefault();
+            return { ...previousValidationErrors, gamebuddyUsername: "error" };
+          });
+        } else {
+          setValidationErrors((previousValidationErrors) => {
+            return { ...previousValidationErrors, gamebuddyUsername: null };
+          });
         }
         if (item.warzoneUsername === signupValues.warzoneUsername) {
-          return alert("warzoneUSername already in use");
+          setValidationErrors((previousValidationErrors) => {
+            event.preventDefault();
+            return { ...previousValidationErrors, warzoneUsername: "error" };
+          });
+        } else {
+          setValidationErrors((previousValidationErrors) => {
+            return { ...previousValidationErrors, warzoneUsername: null };
+          });
         }
         return (
           item.emailAddress === signupValues.emailAddress ||
@@ -65,23 +93,19 @@ const SignupModal = () => {
         );
       };
 
-      //probabilemte qui, per avere un errore unico in caso hai sia email che user gia in uso
-      //(anziche avere un alert e poi un altro alert alla chiusura del primo), devi creare uno state per l error message,
-      //che aggiorni con le if condition su, e poi lo renderizzi con un alert a fine funzione
-
-      if (storedSignupValues.map(valuesChecker)) {
-        storedSignupValues.push(signupValues);
+      if (!storedSignupValues.map(valuesChecker)) {
+        const updatedStoredSignupValues = storedSignupValues.push(signupValues);
         localStorage.setItem(
           "storedSignupValues",
-          JSON.stringify(storedSignupValues)
+          JSON.stringify(updatedStoredSignupValues)
         );
       }
-    }
-    console.log(signupValues);
-    setSignupValues(blankSignupValues);
-    //l alert con lo state error andrebbe qui
+    }    
   };
 
+  const closeHandler = () => {
+    setValidationErrors(blankValidationErrors);
+  };
   return (
     <Fragment>
       <div
@@ -107,9 +131,17 @@ const SignupModal = () => {
             <div className="modal-body">
               <form onSubmit={signupHandler}>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold">
-                    Email address:
-                  </label>
+                  {validationErrors.emailAddress && (
+                    <label className="col-form-label cssBold text-danger">
+                      The email address you selected is already in use! Choose a
+                      different one!
+                    </label>
+                  )}
+                  {!validationErrors.emailAddress && (
+                    <label className="col-form-label cssBold">
+                      Email address:
+                    </label>
+                  )}
                   <input
                     type="email"
                     className="form-control"
@@ -121,9 +153,20 @@ const SignupModal = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold" required>
-                    Gaming Buddy username:
-                  </label>
+                  {validationErrors.gamebuddyUsername && (
+                    <label
+                      className="col-form-label cssBold text-danger"
+                      required
+                    >
+                      The email gaming buddy username you selected is already in
+                      use! Choose a different one!
+                    </label>
+                  )}
+                  {!validationErrors.gamebuddyUsername && (
+                    <label className="col-form-label cssBold" required>
+                      Gaming Buddy username:
+                    </label>
+                  )}
                   <input
                     type="text"
                     className="form-control"
@@ -135,9 +178,20 @@ const SignupModal = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold" required>
-                    Warzone username:
-                  </label>
+                  {validationErrors.gamebuddyUsername && (
+                    <label
+                      className="col-form-label cssBold text-danger"
+                      required
+                    >
+                      The warzone username you selected is already in use!
+                      Choose a different one!
+                    </label>
+                  )}
+                  {!validationErrors.gamebuddyUsername && (
+                    <label className="col-form-label cssBold" required>
+                      Warzone username:
+                    </label>
+                  )}
                   <input
                     type="text"
                     className="form-control"
@@ -166,6 +220,7 @@ const SignupModal = () => {
                     className="btn btn-danger"
                     type="button"
                     data-bs-dismiss="modal"
+                    onClick={closeHandler}
                   >
                     Close
                   </button>
