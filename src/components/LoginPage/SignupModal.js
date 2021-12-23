@@ -46,19 +46,17 @@ const SignupModal = () => {
   };
 
   const signupHandler = (event) => {
+    event.preventDefault();
     if (!JSON.parse(localStorage.getItem("storedSignupValues"))) {
       localStorage.setItem(
         "storedSignupValues",
         JSON.stringify([signupValues])
       );
     } else {
-      const storedSignupValues = JSON.parse(
-        localStorage.getItem("storedSignupValues")
-      );
       const valuesChecker = (item) => {
         if (item.emailAddress === signupValues.emailAddress) {
           setValidationErrors((previousValidationErrors) => {
-            event.preventDefault();
+            // event.preventDefault();
             return { ...previousValidationErrors, emailAddress: "error" };
           });
         } else {
@@ -68,7 +66,7 @@ const SignupModal = () => {
         }
         if (item.gamebuddyUsername === signupValues.gamebuddyUsername) {
           setValidationErrors((previousValidationErrors) => {
-            event.preventDefault();
+            // event.preventDefault();
             return { ...previousValidationErrors, gamebuddyUsername: "error" };
           });
         } else {
@@ -78,7 +76,7 @@ const SignupModal = () => {
         }
         if (item.warzoneUsername === signupValues.warzoneUsername) {
           setValidationErrors((previousValidationErrors) => {
-            event.preventDefault();
+            // event.preventDefault();
             return { ...previousValidationErrors, warzoneUsername: "error" };
           });
         } else {
@@ -92,15 +90,19 @@ const SignupModal = () => {
           item.warzoneUsername === signupValues.warzoneUsername
         );
       };
-
-      if (!storedSignupValues.map(valuesChecker)) {
-        const updatedStoredSignupValues = storedSignupValues.push(signupValues);
+      const storedSignupValues = JSON.parse(
+        localStorage.getItem("storedSignupValues")
+      );
+      const mappedStore = storedSignupValues.map(valuesChecker);
+      if (!mappedStore) {
+        storedSignupValues.push(signupValues);
         localStorage.setItem(
           "storedSignupValues",
-          JSON.stringify(updatedStoredSignupValues)
+          JSON.stringify(storedSignupValues)
         );
+        console.log(JSON.parse(localStorage.getItem("storedSignupValues")))
       }
-    }    
+    }
   };
 
   const closeHandler = () => {
@@ -158,7 +160,7 @@ const SignupModal = () => {
                       className="col-form-label cssBold text-danger"
                       required
                     >
-                      The email gaming buddy username you selected is already in
+                      The gaming buddy username you selected is already in
                       use! Choose a different one!
                     </label>
                   )}
