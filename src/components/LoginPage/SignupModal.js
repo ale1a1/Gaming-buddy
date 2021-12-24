@@ -1,19 +1,13 @@
 import React, { Fragment, useState } from "react";
+
+import { User } from "../../libs/models/User";
+import { SignupValidation } from "../../libs/models/SignupValidation";
 // import "./style.css";
 
 const SignupModal = () => {
-  const blankSignupValues = {
-    emailAddress: "",
-    gamebuddyUsername: "",
-    warzoneUsername: "",
-    password: "",
-  };
+  const blankSignupValues = new User();
 
-  const blankValidationErrors = {
-    emailAddress: null,
-    gamebuddyUsername: null,
-    warzoneUsername: null,
-  };
+  const blankValidationErrors = new SignupValidation();
 
   const [signupValues, setSignupValues] = useState(blankSignupValues);
 
@@ -93,14 +87,16 @@ const SignupModal = () => {
       const storedSignupValues = JSON.parse(
         localStorage.getItem("storedSignupValues")
       );
-      const mappedStore = storedSignupValues.map(valuesChecker);
-      if (!mappedStore) {
+
+      const isInvalid = valuesChecker(blankSignupValues);
+
+      if (!isInvalid) {
         storedSignupValues.push(signupValues);
         localStorage.setItem(
           "storedSignupValues",
           JSON.stringify(storedSignupValues)
         );
-        console.log(JSON.parse(localStorage.getItem("storedSignupValues")))
+        console.log(JSON.parse(localStorage.getItem("storedSignupValues")));
       }
     }
   };
@@ -108,6 +104,7 @@ const SignupModal = () => {
   const closeHandler = () => {
     setValidationErrors(blankValidationErrors);
   };
+
   return (
     <Fragment>
       <div
@@ -160,8 +157,8 @@ const SignupModal = () => {
                       className="col-form-label cssBold text-danger"
                       required
                     >
-                      The gaming buddy username you selected is already in
-                      use! Choose a different one!
+                      The gaming buddy username you selected is already in use!
+                      Choose a different one!
                     </label>
                   )}
                   {!validationErrors.gamebuddyUsername && (
