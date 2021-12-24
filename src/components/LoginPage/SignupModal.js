@@ -47,13 +47,18 @@ const SignupModal = () => {
 
   const signupHandler = (event) => {
     event.preventDefault();
+
     if (!JSON.parse(localStorage.getItem("storedSignupValues"))) {
       localStorage.setItem(
         "storedSignupValues",
         JSON.stringify([signupValues])
       );
     } else {
-      const valuesChecker = (item) => {
+      const storedSignupValues = JSON.parse(
+        localStorage.getItem("storedSignupValues")
+      );
+
+      const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
           setValidationErrors((previousValidationErrors) => {
             // event.preventDefault();
@@ -89,18 +94,13 @@ const SignupModal = () => {
           item.gamebuddyUsername === signupValues.gamebuddyUsername ||
           item.warzoneUsername === signupValues.warzoneUsername
         );
-      };
-      const storedSignupValues = JSON.parse(
-        localStorage.getItem("storedSignupValues")
-      );
-      const mappedStore = storedSignupValues.map(valuesChecker);
-      if (!mappedStore) {
+      });
+      if (!filteredLocalStorage[0]) {
         storedSignupValues.push(signupValues);
         localStorage.setItem(
           "storedSignupValues",
           JSON.stringify(storedSignupValues)
         );
-        console.log(JSON.parse(localStorage.getItem("storedSignupValues")))
       }
     }
   };
@@ -108,6 +108,7 @@ const SignupModal = () => {
   const closeHandler = () => {
     setValidationErrors(blankValidationErrors);
   };
+
   return (
     <Fragment>
       <div
@@ -160,8 +161,8 @@ const SignupModal = () => {
                       className="col-form-label cssBold text-danger"
                       required
                     >
-                      The gaming buddy username you selected is already in
-                      use! Choose a different one!
+                      The gaming buddy username you selected is already in use!
+                      Choose a different one!
                     </label>
                   )}
                   {!validationErrors.gamebuddyUsername && (
