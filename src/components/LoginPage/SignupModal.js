@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { UserRepository } from "..\\libs\\repository\\UserRepository"
+import { UserRepository } from "../../libs/repository/UserRepository";
 // import "./style.css";
 
 const SignupModal = () => {
-  const userRepository = new UserRepository ();
+  const userRepository = new UserRepository();
 
   const blankSignupValues = {
     emailAddress: "",
@@ -51,8 +51,8 @@ const SignupModal = () => {
   const signupHandler = (event) => {
     event.preventDefault();
 
-    if (!JSON.parse(localStorage.getItem("storedSignupValues"))) {
-      userRepository.save(signupValues)
+    if (!userRepository.list().length) {
+      userRepository.save(signupValues);
       // localStorage.setItem(
       //   "storedSignupValues",
       //   JSON.stringify([signupValues])
@@ -61,7 +61,9 @@ const SignupModal = () => {
       const storedSignupValues = JSON.parse(
         localStorage.getItem("storedSignupValues")
       );
-
+    
+      //PROVA AD USARE QUESTO...dava un errore...riprova
+      //const storedSignupValues = userRepository.retrieve()
       const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
           setValidationErrors((previousValidationErrors) => {
@@ -101,10 +103,12 @@ const SignupModal = () => {
       });
       if (!filteredLocalStorage[0]) {
         storedSignupValues.push(signupValues);
-        localStorage.setItem(
-          "storedSignupValues",
-          JSON.stringify(storedSignupValues)
-        );
+        // userRepository.add(signupValues);
+        //PROVA A USARE QUESTO...DAVA UN ERRORE....
+          localStorage.setItem(
+            "storedSignupValues",
+            JSON.stringify(storedSignupValues)
+          );
       }
     }
   };
@@ -185,7 +189,7 @@ const SignupModal = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  {validationErrors.gamebuddyUsername && (
+                  {validationErrors.warzoneUsername && (
                     <label
                       className="col-form-label cssBold text-danger"
                       required
@@ -194,7 +198,7 @@ const SignupModal = () => {
                       Choose a different one!
                     </label>
                   )}
-                  {!validationErrors.gamebuddyUsername && (
+                  {!validationErrors.warzoneUsername && (
                     <label className="col-form-label cssBold" required>
                       Warzone username:
                     </label>
