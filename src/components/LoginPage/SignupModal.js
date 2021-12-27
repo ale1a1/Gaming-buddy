@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from "react";
+import { UserRepository } from "..\\libs\\repository\\UserRepository"
 // import "./style.css";
 
 const SignupModal = () => {
+  const userRepository = new UserRepository ();
+
   const blankSignupValues = {
     emailAddress: "",
     gamebuddyUsername: "",
@@ -49,10 +52,11 @@ const SignupModal = () => {
     event.preventDefault();
 
     if (!JSON.parse(localStorage.getItem("storedSignupValues"))) {
-      localStorage.setItem(
-        "storedSignupValues",
-        JSON.stringify([signupValues])
-      );
+      userRepository.save(signupValues)
+      // localStorage.setItem(
+      //   "storedSignupValues",
+      //   JSON.stringify([signupValues])
+      // );
     } else {
       const storedSignupValues = JSON.parse(
         localStorage.getItem("storedSignupValues")
