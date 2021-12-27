@@ -58,12 +58,8 @@ const SignupModal = () => {
       //   JSON.stringify([signupValues])
       // );
     } else {
-      const storedSignupValues = JSON.parse(
-        localStorage.getItem("storedSignupValues")
-      );
-    
-      //PROVA AD USARE QUESTO...dava un errore...riprova
-      //const storedSignupValues = userRepository.retrieve()
+      const storedSignupValues = userRepository.retrieve();
+
       const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
           setValidationErrors((previousValidationErrors) => {
@@ -101,14 +97,12 @@ const SignupModal = () => {
           item.warzoneUsername === signupValues.warzoneUsername
         );
       });
-      if (!filteredLocalStorage[0]) {
-        storedSignupValues.push(signupValues);
-        // userRepository.add(signupValues);
-        //PROVA A USARE QUESTO...DAVA UN ERRORE....
-          localStorage.setItem(
-            "storedSignupValues",
-            JSON.stringify(storedSignupValues)
-          );
+      if (!filteredLocalStorage[0]) {        
+        userRepository.add(signupValues);        
+        // localStorage.setItem(
+        //   "storedSignupValues",
+        //   JSON.stringify(storedSignupValues)
+        // );
       }
     }
   };

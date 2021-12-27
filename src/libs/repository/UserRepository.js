@@ -16,10 +16,10 @@ export class UserRepository {
   }
 
   add(object) {
-    this.add(object)
+    this.repository.add(object)
   }
 
-  list() {
+  list(object) {
     return this.repository.list();
   }
 
