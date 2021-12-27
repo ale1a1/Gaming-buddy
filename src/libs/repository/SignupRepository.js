@@ -2,7 +2,7 @@
 // import { User } from "../models/User";
 import { Repository } from "./Repository";
 
-export class UserRepository {
+export class SignupRepository {
   constructor() {
     this.repository = new Repository("storedSignupValues");
   }
@@ -15,10 +15,6 @@ export class UserRepository {
     this.repository.add(user);
   }
 
-  add(object) {
-    this.repository.add(object)
-  }
-
   list(object) {
     return this.repository.list();
   }
@@ -27,8 +23,6 @@ export class UserRepository {
   retrieve() {
     return this.repository.retrieve();
   }
-
-
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
   // /**

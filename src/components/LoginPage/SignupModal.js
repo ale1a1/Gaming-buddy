@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { UserRepository } from "../../libs/repository/UserRepository";
+import { SignupRepository } from "../../libs/repository/SignupRepository";
 // import "./style.css";
 
 const SignupModal = () => {
-  const userRepository = new UserRepository();
+  const signupRepository = new SignupRepository();
 
   const blankSignupValues = {
     emailAddress: "",
@@ -51,14 +51,14 @@ const SignupModal = () => {
   const signupHandler = (event) => {
     event.preventDefault();
 
-    if (!userRepository.list().length) {
-      userRepository.save(signupValues);
+    if (!signupRepository.list().length) {
+      signupRepository.save(signupValues);
       // localStorage.setItem(
       //   "storedSignupValues",
       //   JSON.stringify([signupValues])
       // );
     } else {
-      const storedSignupValues = userRepository.retrieve();
+      const storedSignupValues = signupRepository.retrieve();
 
       const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
@@ -98,7 +98,7 @@ const SignupModal = () => {
         );
       });
       if (!filteredLocalStorage[0]) {        
-        userRepository.add(signupValues);        
+        signupRepository.save(signupValues);        
         // localStorage.setItem(
         //   "storedSignupValues",
         //   JSON.stringify(storedSignupValues)

@@ -1,7 +1,86 @@
 import React, { Fragment, useState } from "react";
+import { SignupRepository } from "../../libs/repository/SignupRepository";
+import { LoginRepository } from "../../libs/repository/LoginRepository";
 // import "./style.css";
 
 const LoginModal = () => {
+  const signupRepository = new SignupRepository();
+  const loginRepository = new LoginRepository();
+
+  const blankLoginValues = {
+    gamebuddyUsername: "",
+    password: "",
+  };
+
+  const blankValidationErrors = {
+    gamebuddyUsername: null,
+    password: null,
+  };
+
+  const [loginValues, setLoginValues] = useState(blankLoginValues);
+
+  const [validationErrors, setValidationErrors] = useState(
+    blankValidationErrors
+  );
+
+  const gamebuddyUsernameHandler = (event) => {
+    setLoginValues((previousLoginValues) => {
+      return { ...previousLoginValues, gamebuddyUsername: event.target.value };
+    });
+  };
+
+  const passwordHandler = (event) => {
+    setLoginValues((previousLoginValues) => {
+      return { ...previousLoginValues, password: event.target.value };
+    });
+  };
+
+  const loginHandler = (event) => {
+   
+    event.preventDefault();
+    const storedSignupValues = signupRepository.retrieve();
+
+    const filteredLocalStorage = storedSignupValues.filter((item) => {
+      if (item.gamebuddyUsername !== loginValues.gamebuddyUsername) {
+        setValidationErrors((previousValidationErrors) => {
+          // event.preventDefault();
+          return { ...previousValidationErrors, gamebuddyUsername: "error" };
+        });
+      } else {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, gamebuddyUsername: null };
+        });
+      }
+      if (item.password !== loginValues.password) {
+        setValidationErrors((previousValidationErrors) => {
+          // event.preventDefault();
+          return { ...previousValidationErrors, password: "error" };
+        });
+      } else {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, password: null };
+        });
+      }
+      return (
+        item.gamebuddyUsername === loginValues.gamebuddyUsername &&
+        item.password === loginValues.warzoneUsername
+      );
+    });
+    console.log(filteredLocalStorage)
+    console.log(storedSignupValues)
+    console.log(loginValues)
+    console.log(validationErrors)
+    if (filteredLocalStorage[0]) {
+      loginRepository.list();
+      loginRepository.save("Logged in");
+      alert("Logged in!");
+    }
+  };
+
+  const closeHandler = () => {
+    setValidationErrors(blankValidationErrors);
+  };
+
   return (
     <Fragment>
       <div
@@ -25,29 +104,58 @@ const LoginModal = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <form                
-              >
+              <form onSubmit={loginHandler}>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold">
+                {validationErrors.gamebuddyUsername && (
+                    <label
+                      className="col-form-label cssBold text-danger"
+                      required
+                    >
+                      The gaming buddy username you selected is not recognised!
+                      Try again!
+                    </label>
+                  )}
+                  {!validationErrors.gamebuddyUsername && (
+                    <label className="col-form-label cssBold" required>
+                      Gaming Buddy username:
+                    </label>
+                  )}
+                  {/* <label className="col-form-label cssBold">
                     Gaming Buddy username
-                  </label>
+                  </label> */}
                   <input
                     type="text"
                     className="form-control"
                     name="Gaming Buddy username"
                     placeholder="Insert your Gaming Buddy username"
+                    onChange={gamebuddyUsernameHandler}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold" required>
+                {validationErrors.gamebuddyUsername && (
+                    <label
+                      className="col-form-label cssBold text-danger"
+                      required
+                    >
+                      The password you selected is not recognised!
+                      Try again!
+                    </label>
+                  )}
+                  {!validationErrors.gamebuddyUsername && (
+                    <label className="col-form-label cssBold" required>
+                      Password:
+                    </label>
+                  )}
+                  {/* <label className="col-form-label cssBold" required>
                     Password:
-                  </label>
+                  </label> */}
                   <input
                     type="text"
                     className="form-control"
                     name="Password"
                     placeholder="Insert your password"
+                    onChange={passwordHandler}
                     required
                   />
                 </div>
@@ -57,6 +165,7 @@ const LoginModal = () => {
                     className="btn btn-danger"
                     type="button"
                     data-bs-dismiss="modal"
+                    onClick={closeHandler}
                   >
                     Close
                   </button>
