@@ -15,7 +15,7 @@ export class LoginRepository {
     this.repository.add(user);
   }
 
-  list(object) {
+  list() {
     return this.repository.list();
   }
 

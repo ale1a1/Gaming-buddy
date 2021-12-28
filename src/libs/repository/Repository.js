@@ -12,8 +12,8 @@ export class Repository {
    * @returns {Array<Object>}
    */
   list() {
-    const storedUsers = localStorage.getItem(this.repositoryName);
-    const stored = JSON.parse(storedUsers);
+    const storedValues = localStorage.getItem(this.repositoryName);
+    const stored = JSON.parse(storedValues);
     return stored === null ? [] : stored;
   }
 

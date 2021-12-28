@@ -36,44 +36,41 @@ const LoginModal = () => {
   };
 
   const loginHandler = (event) => {
-   
-    event.preventDefault();
     const storedSignupValues = signupRepository.retrieve();
 
     const filteredLocalStorage = storedSignupValues.filter((item) => {
-      if (item.gamebuddyUsername !== loginValues.gamebuddyUsername) {
-        setValidationErrors((previousValidationErrors) => {
-          // event.preventDefault();
-          return { ...previousValidationErrors, gamebuddyUsername: "error" };
-        });
-      } else {
+      if (item.gamebuddyUsername === loginValues.gamebuddyUsername) {
         setValidationErrors((previousValidationErrors) => {
           return { ...previousValidationErrors, gamebuddyUsername: null };
         });
-      }
-      if (item.password !== loginValues.password) {
+      } else {
         setValidationErrors((previousValidationErrors) => {
-          // event.preventDefault();
-          return { ...previousValidationErrors, password: "error" };
+          return { ...previousValidationErrors, gamebuddyUsername: "error" };
+        });
+      }
+      if (item.password === loginValues.password) {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, password: null };
         });
       } else {
         setValidationErrors((previousValidationErrors) => {
-          return { ...previousValidationErrors, password: null };
+          return { ...previousValidationErrors, password: "error" };
         });
       }
       return (
         item.gamebuddyUsername === loginValues.gamebuddyUsername &&
-        item.password === loginValues.warzoneUsername
+        item.password === loginValues.password
       );
     });
-    console.log(filteredLocalStorage)
-    console.log(storedSignupValues)
-    console.log(loginValues)
-    console.log(validationErrors)
     if (filteredLocalStorage[0]) {
       loginRepository.list();
-      loginRepository.save("Logged in");
+      if (loginRepository.list().length < 1) {
+        loginRepository.save("Logged in");
+      }
       alert("Logged in!");
+      setValidationErrors(blankValidationErrors);
+    } else {
+      event.preventDefault();
     }
   };
 
@@ -106,7 +103,7 @@ const LoginModal = () => {
             <div className="modal-body">
               <form onSubmit={loginHandler}>
                 <div className="mb-3">
-                {validationErrors.gamebuddyUsername && (
+                  {validationErrors.gamebuddyUsername && (
                     <label
                       className="col-form-label cssBold text-danger"
                       required
@@ -129,17 +126,17 @@ const LoginModal = () => {
                     name="Gaming Buddy username"
                     placeholder="Insert your Gaming Buddy username"
                     onChange={gamebuddyUsernameHandler}
+                    value={loginValues.gamebuddyUsername}
                     required
                   />
                 </div>
                 <div className="mb-3">
-                {validationErrors.gamebuddyUsername && (
+                  {validationErrors.gamebuddyUsername && (
                     <label
                       className="col-form-label cssBold text-danger"
                       required
                     >
-                      The password you selected is not recognised!
-                      Try again!
+                      The password you selected is not recognised! Try again!
                     </label>
                   )}
                   {!validationErrors.gamebuddyUsername && (
@@ -156,6 +153,7 @@ const LoginModal = () => {
                     name="Password"
                     placeholder="Insert your password"
                     onChange={passwordHandler}
+                    value={loginValues.password}
                     required
                   />
                 </div>
