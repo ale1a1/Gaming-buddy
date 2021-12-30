@@ -1,9 +1,13 @@
 import React, { Fragment, useState } from "react";
+import { LoginRepository } from "../../libs/repository/LoginRepository";
 import { SignupRepository } from "../../libs/repository/SignupRepository";
+
 // import "./style.css";
 
 const SignupModal = () => {
   const signupRepository = new SignupRepository();
+  const loginRepository = new LoginRepository();
+  loginRepository.list();
 
   const blankSignupValues = {
     emailAddress: "",
@@ -51,8 +55,13 @@ const SignupModal = () => {
   const signupHandler = (event) => {
     if (!signupRepository.list().length) {
       signupRepository.save(signupValues);
+      loginRepository.list();
+      if (loginRepository.list().length < 1) {
+        loginRepository.save("Logged in");
+      }
+      alert("User created!Click ok to login");
     } else {
-      const storedSignupValues = signupRepository.retrieve();
+      const storedSignupValues = signupRepository.retrieve();  
 
       const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
@@ -88,15 +97,19 @@ const SignupModal = () => {
           item.warzoneUsername === signupValues.warzoneUsername
         );
       });
+      
       if (!filteredLocalStorage[0]) {
         signupRepository.save(signupValues);
-        alert("profile created!click ok to login")
+        loginRepository.list();
+        if (loginRepository.list().length < 1) {
+          loginRepository.save("Logged in");
+        }
+        alert("User created!Click ok to login");
       } else {
         event.preventDefault();
       }
     }
   };
-
   const closeHandler = () => {
     setValidationErrors(blankValidationErrors);
   };
