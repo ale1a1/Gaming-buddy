@@ -1,0 +1,8 @@
+.myProfile {
+    background: url("/src/img/myProfilePage.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+  }
+  

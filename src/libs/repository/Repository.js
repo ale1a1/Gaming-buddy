@@ -32,6 +32,7 @@ export class Repository {
     return JSON.parse(localStorage.getItem(this.repositoryName));
   }
 
+ 
   // NOT IN USE FOR NOW !!!!!!!!
   // /**
   //  *
@@ -53,13 +54,13 @@ export class Repository {
   //   }
   // }
 
-  // /**
-  //  * Objects that doesn't match the filter function will be deleted from repository
-  //  * @param { Function } filter
-  //  */
-  // delete(filter) {
-  //   const objects = this.list();
-  //   const filteredObjects = objects.filter(filter);
-  //   localStorage.setItem(this.repositoryName, JSON.stringify(filteredObjects));
-  // }
+  /**
+   * Objects that doesn't match the filter function will be deleted from repository
+   * @param { Function } filter
+   */
+  delete(filter) {
+    const objects = this.list();
+    const filteredObjects = objects.filter(filter);
+    localStorage.setItem(this.repositoryName, JSON.stringify(filteredObjects));
+  }
 }
