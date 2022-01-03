@@ -101,9 +101,9 @@ const MyProfileForm = () => {
             warzoneUsername: item.warzoneUsername,
           };
         });
+        profileRepository.save(gamingProfile);
       }
     });
-    profileRepository.save(gamingProfile);
   };
 
   return (
