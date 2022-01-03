@@ -3,8 +3,7 @@ import "../MyProfile/MyProfile.css";
 import Navigation from "../Navigation/Navigation";
 import MyProfileForm from "./MyProfileForm";
 
-//crea un conditional rendering
-// se il toke profile esite nel local storage...mostri il profile...se non esite...mostri il form per crearlo...
+
 
 const MyProfile = (props) => {
   return (

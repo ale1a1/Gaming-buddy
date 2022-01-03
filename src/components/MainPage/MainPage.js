@@ -6,8 +6,7 @@ const MainPaige = (props) => {
   return (
     <Fragment>
       <div className="mainPage">
-        <Navigation logoutHandler={props.logoutHandler} homeClass="active"/>
-        <div className="text-danger display-5">MAIN PAGE</div>
+        <Navigation logoutHandler={props.logoutHandler} homeClass="active"/>       
       </div>
     </Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import LoginPage from "./components/LoginPage/LoginPage";
@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   const logoutHandler = () => {
-    localStorage.removeItem("LoginToken");
+    localStorage.removeItem("CurrentGamebuddyUser");
     setIsLoggedIn(false);
   };
 
@@ -58,21 +58,19 @@ function App() {
     <LoginPage />
   );
 
-
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={homePage}></Route>
-        <Route path="/Search" element={searchABuddy}></Route>
-        <Route path="/Messages" element={myMessages}></Route>
-        <Route path="/Buddies" element={myBuddies}></Route>
-        <Route
-          path="/Profile"
-          element={myProfile}
-        ></Route>
-        <Route path="*" element={<ErrorPage />}></Route>
-      </Routes>
-    </Router>
+    <Fragment>
+      <Router>
+        <Routes>
+          <Route path="/" element={homePage}></Route>
+          <Route path="/Search" element={searchABuddy}></Route>
+          <Route path="/Messages" element={myMessages}></Route>
+          <Route path="/Buddies" element={myBuddies}></Route>
+          <Route path="/Profile" element={myProfile}></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
+        </Routes>
+      </Router>
+    </Fragment>
   );
 }
 

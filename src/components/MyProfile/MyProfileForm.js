@@ -1,7 +1,14 @@
 import React, { Fragment, useState } from "react";
+import { ProfileRepository } from "../../libs/repository/ProfileRepository";
+import { LoginRepository } from "../../libs/repository/LoginRepository";
+import { SignupRepository } from "../../libs/repository/SignupRepository";
 import "../MyProfile/MyProfileForm.css";
 
-const MyProfile = () => {
+const MyProfileForm = () => {
+  const profileRepository = new ProfileRepository();
+  const loginRepository = new LoginRepository();
+  const signupRepository = new SignupRepository();
+
   const blankGamingProfile = {
     platform: "",
     map: "",
@@ -13,6 +20,10 @@ const MyProfile = () => {
     days: "",
     time: "",
     timeZone: "",
+    emailAddress: "",
+    gamebuddyUsername: "",
+    password: "",
+    warzoneUsername: "",
   };
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
@@ -75,61 +86,24 @@ const MyProfile = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(gamingProfile);
-    // if (!signupRepository.list().length) {
-    //   signupRepository.save(signupValues);
-    //   loginRepository.list();
-    //   if (loginRepository.list().length < 1) {
-    //     loginRepository.save("Logged in");
-    //   }
-    //   alert("User created!Click ok to login");
-    // } else {
-    //   const storedSignupValues = signupRepository.retrieve();
-    //   const filteredLocalStorage = storedSignupValues.filter((item) => {
-    //     if (item.emailAddress === signupValues.emailAddress) {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, emailAddress: "error" };
-    //       });
-    //     } else {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, emailAddress: null };
-    //       });
-    //     }
-    //     if (item.gamebuddyUsername === signupValues.gamebuddyUsername) {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, gamebuddyUsername: "error" };
-    //       });
-    //     } else {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, gamebuddyUsername: null };
-    //       });
-    //     }
-    //     if (item.warzoneUsername === signupValues.warzoneUsername) {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, warzoneUsername: "error" };
-    //       });
-    //     } else {
-    //       setValidationErrors((previousValidationErrors) => {
-    //         return { ...previousValidationErrors, warzoneUsername: null };
-    //       });
-    //     }
-    //     return (
-    //       item.emailAddress === signupValues.emailAddress ||
-    //       item.gamebuddyUsername === signupValues.gamebuddyUsername ||
-    //       item.warzoneUsername === signupValues.warzoneUsername
-    //     );
-    //   });
-    //   if (!filteredLocalStorage[0]) {
-    //     signupRepository.save(signupValues);
-    //     loginRepository.list();
-    //     if (loginRepository.list().length < 1) {
-    //       loginRepository.save("Logged in");
-    //     }
-    //     alert("User created!Click ok to login");
-    //   } else {
-    //     event.preventDefault();
-    //   }
-    // }
+    const gamebuddyUsername = loginRepository.retrieve()[0];
+    const storedSignupValues = signupRepository.retrieve();
+
+    storedSignupValues.filter((item) => {
+      if (item.gamebuddyUsername === gamebuddyUsername) {
+        console.log("match");
+        setGamingProfile((previousGamingProfileValues) => {
+          return {
+            ...previousGamingProfileValues,
+            emailAddress: item.emailAddress,
+            gamebuddyUsername: item.gamebuddyUsername,
+            password: item.password,
+            warzoneUsername: item.warzoneUsername,
+          };
+        });
+      }
+    });
+    profileRepository.save(gamingProfile);
   };
 
   return (
@@ -235,7 +209,7 @@ const MyProfile = () => {
                     <option value="Camper">Camper</option>
                   </select>
                 </div>
-         
+
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Microphone</label>
                   <select
@@ -269,7 +243,9 @@ const MyProfile = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="col-form-label cssBold">Avaible (days)</label>
+                  <label className="col-form-label cssBold">
+                    Avaible (days)
+                  </label>
                   <select
                     class="form-select"
                     aria-label="select days"
@@ -280,11 +256,13 @@ const MyProfile = () => {
                       select
                     </option>
                     <option value="Monday-Friday">Monday-Friday</option>
-                    <option value="Weekend">Weekend</option>                    
+                    <option value="Weekend">Weekend</option>
                   </select>
                 </div>
                 <div className="mb-3">
-                  <label className="col-form-label cssBold">Avaible (time)</label>
+                  <label className="col-form-label cssBold">
+                    Avaible (time)
+                  </label>
                   <select
                     class="form-select"
                     aria-label="select time"
@@ -295,7 +273,7 @@ const MyProfile = () => {
                       select
                     </option>
                     <option value="9-11">9-11</option>
-                    <option value="7-9">7-9</option>                   
+                    <option value="7-9">7-9</option>
                   </select>
                 </div>
                 <div className="mb-3">
@@ -335,4 +313,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default MyProfileForm;

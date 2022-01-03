@@ -65,9 +65,9 @@ const LoginModal = () => {
     if (filteredLocalStorage[0]) {
       loginRepository.list();
       if (loginRepository.list().length < 1) {
-        loginRepository.save("Logged in");
+        loginRepository.save(loginValues.gamebuddyUsername);
       }
-      alert("Logged in!");
+      alert("Logged in!");   
       setValidationErrors(blankValidationErrors);
     } else {
       event.preventDefault();

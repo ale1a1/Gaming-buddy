@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
-// import { LogoutRepository } from "../../libs/repository/LogoutRepository";
+import { LoginRepository } from "../../libs/repository/LoginRepository";
 
 const Navigation = (props) => {
-  //   const logoutRepository = new LogoutRepository();
-  //   const logoutHandler = () => {
-  //     console.log("logout");
-  //     logoutRepository.delete("Logged in");
-  //   };
+  const loginRepository = new LoginRepository();
+
+  const gamebuddyUsername = loginRepository.retrieve();
+
   return (
     <Fragment>
+      return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger fixed-top shadow">
         <div className="container-fluid">
           <a className="navbar-brand font-monospace" href="/">
@@ -64,16 +64,22 @@ const Navigation = (props) => {
                   className={`nav-link ${props.profileClass} text-uppercase`}
                   href="Profile"
                 >
-                  My profile
+                  My profile ({gamebuddyUsername})
                 </a>
               </li>
             </ul>
-            <a onClick={props.logoutHandler} class="btn btn-outline-dark btn-sm" href="/" role="button">
+            <a
+              onClick={props.logoutHandler}
+              class="btn btn-outline-dark btn-sm"
+              href="/"
+              role="button"
+            >
               logout
             </a>
           </div>
         </div>
       </nav>
+      );
     </Fragment>
   );
 };

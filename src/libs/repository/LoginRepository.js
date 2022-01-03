@@ -4,7 +4,7 @@ import { Repository } from "./Repository";
 
 export class LoginRepository {
   constructor() {
-    this.repository = new Repository("LoginToken");
+    this.repository = new Repository("CurrentGamebuddyUser");
   }
 
   /**

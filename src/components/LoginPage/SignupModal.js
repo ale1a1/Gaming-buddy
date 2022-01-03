@@ -57,7 +57,7 @@ const SignupModal = () => {
       signupRepository.save(signupValues);
       loginRepository.list();
       if (loginRepository.list().length < 1) {
-        loginRepository.save("Logged in");
+        loginRepository.save(signupValues.gamebuddyUsername);
       }
       alert("User created!Click ok to login");
     } else {
@@ -102,9 +102,9 @@ const SignupModal = () => {
         signupRepository.save(signupValues);
         loginRepository.list();
         if (loginRepository.list().length < 1) {
-          loginRepository.save("Logged in");
+          loginRepository.save(signupValues.gamebuddyUsername);
         }
-        alert("User created!Click ok to login");
+        alert("User created!Click ok to login");        
       } else {
         event.preventDefault();
       }
