@@ -88,20 +88,30 @@ const MyProfileForm = () => {
     // event.preventDefault();
     const gamebuddyUsername = loginRepository.retrieve()[0];
     const storedSignupValues = signupRepository.retrieve();
-    storedSignupValues.filter((item) => {
+    console.log(storedSignupValues);
+    const filteredStoredSignupValues = storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
-        setGamingProfile((previousGamingProfileValues) => {
-          return {
-            ...previousGamingProfileValues,
-            emailAddress: item.emailAddress,
-            gamebuddyUsername: item.gamebuddyUsername,
-            password: item.password,
-            warzoneUsername: item.warzoneUsername,
-          };
-        });
-        profileRepository.save(gamingProfile);
+        console.log(item.gamebuddyUsername === gamebuddyUsername);
+        // setGamingProfile((previousGamingProfileValues) => {
+        //   return {
+        //     ...previousGamingProfileValues,
+        //     emailAddress: item.emailAddress,
+        //     gamebuddyUsername: item.gamebuddyUsername,
+        //     password: item.password,
+        //     warzoneUsername: item.warzoneUsername,
+        //   };
+        // });
+        const updateGamingProfile = {
+          ...gamingProfile,
+          emailAddress: item.emailAddress,
+          gamebuddyUsername: item.gamebuddyUsername,
+          password: item.password,
+          warzoneUsername: item.warzoneUsername,
+        };
+        console.log(gamingProfile);
+        profileRepository.save(updateGamingProfile);
       }
-      return item;
+      return item.gamebuddyUsername === gamebuddyUsername;
     });
   };
 
