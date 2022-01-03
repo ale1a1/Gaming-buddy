@@ -2,11 +2,11 @@ import React, { Fragment } from "react";
 // import { LogoutRepository } from "../../libs/repository/LogoutRepository";
 
 const Navigation = (props) => {
-//   const logoutRepository = new LogoutRepository();
-//   const logoutHandler = () => {
-//     console.log("logout");
-//     logoutRepository.delete("Logged in");
-//   };
+  //   const logoutRepository = new LogoutRepository();
+  //   const logoutHandler = () => {
+  //     console.log("logout");
+  //     logoutRepository.delete("Logged in");
+  //   };
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger fixed-top shadow">
@@ -28,38 +28,49 @@ const Navigation = (props) => {
           <div className="collapse navbar-collapse" id="Navbar">
             <ul className="navbar-nav ms-5 me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className={`nav-link ${props.homeClass} text-uppercase`} href="/">
+                <a
+                  className={`nav-link ${props.homeClass} text-uppercase`}
+                  href="/"
+                >
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${props.searchClass} text-uppercase`} href="Search">
+                <a
+                  className={`nav-link ${props.searchClass} text-uppercase`}
+                  href="Search"
+                >
                   Search a buddy
                 </a>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${props.messageClass} text-uppercase`} href="Messages">
+                <a
+                  className={`nav-link ${props.messageClass} text-uppercase`}
+                  href="Messages"
+                >
                   My messages
                 </a>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${props.buddiesClass} text-uppercase`} href="Buddies">
+                <a
+                  className={`nav-link ${props.buddiesClass} text-uppercase`}
+                  href="Buddies"
+                >
                   My buddies
                 </a>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${props.profileClass} text-uppercase`} href="Profile">
+                <a
+                  className={`nav-link ${props.profileClass} text-uppercase`}
+                  href="Profile"
+                >
                   My profile
                 </a>
               </li>
             </ul>
-            <button
-              className="btn btn-outline-dark"
-              type="button"
-              onClick={props.logoutHandler}
-            >
+            <a onClick={props.logoutHandler} class="btn btn-outline-dark btn-sm" href="/" role="button">
               logout
-            </button>
+            </a>
           </div>
         </div>
       </nav>

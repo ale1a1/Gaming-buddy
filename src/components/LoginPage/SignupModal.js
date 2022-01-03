@@ -213,7 +213,7 @@ const SignupModal = () => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Password:</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     name="Password"
                     placeholder="Create your password"

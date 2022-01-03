@@ -148,7 +148,7 @@ const LoginModal = () => {
                     Password:
                   </label> */}
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     name="Password"
                     placeholder="Insert your password"

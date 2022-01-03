@@ -5,4 +5,11 @@
     height: 100vh;
     width: 100vw;
   }
+
+  .background {
+    background-color: rgba(0, 0, 0, 0.603);
+  }
   
+  .cssBold {
+    font-weight: bold;
+  }
