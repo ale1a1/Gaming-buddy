@@ -11,7 +11,7 @@ const MyProfileForm = () => {
 
   const blankGamingProfile = {
     platform: "",
-    map: "",
+    gameMap: "",
     mode: "",
     kd: "",
     gameStyle: "",
@@ -35,7 +35,7 @@ const MyProfileForm = () => {
   };
   const mapHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, map: event.target.value };
+      return { ...previousGamingProfileValues, gameMap: event.target.value };
     });
   };
   const modeHandler = (event) => {
@@ -85,13 +85,11 @@ const MyProfileForm = () => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const gamebuddyUsername = loginRepository.retrieve()[0];
     const storedSignupValues = signupRepository.retrieve();
-
     storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
-        console.log("match");
         setGamingProfile((previousGamingProfileValues) => {
           return {
             ...previousGamingProfileValues,
@@ -103,6 +101,7 @@ const MyProfileForm = () => {
         });
         profileRepository.save(gamingProfile);
       }
+      return item;
     });
   };
 
