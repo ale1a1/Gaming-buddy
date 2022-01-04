@@ -78,10 +78,10 @@ const MyProfileTable = (props) => {
           data-bs-toggle="modal"
           data-bs-target="#profileForm"
         >
-          CREATE PROFILE
+          EDIT PROFILE
         </button>
       </div>
-      <MyProfileForm />
+      <MyProfileForm submitButton="Save changes" submitSwitcher="Edit"/>
     </Fragment>
   );
 };

@@ -22,14 +22,18 @@ export class ProfileRepository {
     return this.repository.retrieve();
   }
 
+
+  /**
+   *
+   * @param {string} email
+   */
+  delete(gamebuddyUsername) {
+    this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
+  }
+
+
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
-  // /**
-  //  *
-  //  * @param {string} email
-  //  */
-  // delete(email) {
-  //   this.repository.delete((x) => x.emailAddress !== email);
-  // }
+
 
   // /**
   //  *

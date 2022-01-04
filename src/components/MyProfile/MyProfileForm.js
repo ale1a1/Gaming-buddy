@@ -4,7 +4,7 @@ import { LoginRepository } from "../../libs/repository/LoginRepository";
 import { SignupRepository } from "../../libs/repository/SignupRepository";
 import "../MyProfile/MyProfileForm.css";
 
-const MyProfileForm = () => {
+const MyProfileForm = (props) => {
   const profileRepository = new ProfileRepository();
   const loginRepository = new LoginRepository();
   const signupRepository = new SignupRepository();
@@ -25,6 +25,8 @@ const MyProfileForm = () => {
     password: "",
     warzoneUsername: "",
   };
+
+  const [submitSwitcher, setSubmitSwitcher] = useState(props.submitSwitcher);
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
 
@@ -88,19 +90,9 @@ const MyProfileForm = () => {
     // event.preventDefault();
     const gamebuddyUsername = loginRepository.retrieve()[0];
     const storedSignupValues = signupRepository.retrieve();
-    console.log(storedSignupValues);
     const filteredStoredSignupValues = storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
         console.log(item.gamebuddyUsername === gamebuddyUsername);
-        // setGamingProfile((previousGamingProfileValues) => {
-        //   return {
-        //     ...previousGamingProfileValues,
-        //     emailAddress: item.emailAddress,
-        //     gamebuddyUsername: item.gamebuddyUsername,
-        //     password: item.password,
-        //     warzoneUsername: item.warzoneUsername,
-        //   };
-        // });
         const updateGamingProfile = {
           ...gamingProfile,
           emailAddress: item.emailAddress,
@@ -113,6 +105,24 @@ const MyProfileForm = () => {
       }
       return item.gamebuddyUsername === gamebuddyUsername;
     });
+  };
+     
+   // TRY TO CREATE THE PROFILE, then edit! WORKS OK
+
+   // BUT IF YOU REMOVE THE ARRAY MANUALLY FROM THE STORAGE, when you go to create a new profile
+   // editHandler get called instead of submitHandler! (you can see it beacuse you get the specific alert!)
+   // it works...the reason is beacuse the state submitSwitcher do not get update to "Create profile?"
+   // I mean...shall we leave it like this????
+
+  const editHandler = (event) => {
+    const gamebuddyUsername = loginRepository.retrieve()[0];
+    // const usersFullProfiles = profileRepository.retrieve();
+    // const filteredUsersFullProfiles = usersFullProfiles.filter((item) => {
+    //   return item.gamebuddyUsername !== gamebuddyUsername;
+    // });
+    profileRepository.delete(gamebuddyUsername);
+    submitHandler()
+    alert("editing");
   };
 
   return (
@@ -138,7 +148,11 @@ const MyProfileForm = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <form onSubmit={submitHandler}>
+              <form
+                onSubmit={
+                  submitSwitcher === "Create" ? submitHandler : editHandler
+                }
+              >
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Platform</label>
                   <select
@@ -310,7 +324,7 @@ const MyProfileForm = () => {
                     Close
                   </button>
                   <button className="btn btn-primary" type="submit">
-                    Create Profile
+                    {props.submitButton}
                   </button>
                 </div>
               </form>
