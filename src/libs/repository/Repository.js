@@ -38,7 +38,7 @@ export class Repository {
    * @return {Array<Object>}
    */
   get(filter) {
-    return this.list.filter(filter);
+    return this.list().filter(filter);
   }
 
   /**
@@ -48,7 +48,7 @@ export class Repository {
   findOne(filter) {
     const filtered = this.get(filter);
     if (filtered.length > 0) {
-      return filtered[0];
+      return filtered[0];      
     }
   }
 

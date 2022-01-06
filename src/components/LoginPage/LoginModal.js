@@ -46,7 +46,7 @@ const LoginModal = () => {
 
   const loginHandler = (event) => {
     const filteredLocalStorage = signupRepository.findUser(loginValues)
-    if (filteredLocalStorage[0]) {
+    if (filteredLocalStorage) {      
       loginRepository.save(loginValues.gamebuddyUsername);
       alert("Logged in!");
     } else {

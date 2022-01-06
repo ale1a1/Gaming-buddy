@@ -70,7 +70,7 @@ const Navigation = (props) => {
             </ul>
             <a
               onClick={props.logoutHandler}
-              class="btn btn-outline-dark btn-sm"
+              className="btn btn-outline-dark btn-sm"
               href="/"
               role="button"
             >

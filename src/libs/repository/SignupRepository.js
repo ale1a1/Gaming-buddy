@@ -15,7 +15,7 @@ export class SignupRepository {
     this.repository.add(user);
   }
 
-  list(object) {
+  list() {
     return this.repository.list();
   }
 
@@ -32,7 +32,7 @@ export class SignupRepository {
         item.password === password
     );
   }
-  
+
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
   // /**
