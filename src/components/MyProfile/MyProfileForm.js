@@ -2,31 +2,31 @@ import React, { Fragment, useState } from "react";
 import { ProfileRepository } from "../../libs/repository/ProfileRepository";
 import { LoginRepository } from "../../libs/repository/LoginRepository";
 import { SignupRepository } from "../../libs/repository/SignupRepository";
+import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
 import "../MyProfile/MyProfileForm.css";
 
 const MyProfileForm = (props) => {
   const profileRepository = new ProfileRepository();
   const loginRepository = new LoginRepository();
   const signupRepository = new SignupRepository();
+  const blankGamingProfile= new BlankGamingProfile()
 
-  const blankGamingProfile = {
-    platform: "",
-    gameMap: "",
-    mode: "",
-    kd: "",
-    gameStyle: "",
-    mic: "",
-    lang: "",
-    days: "",
-    time: "",
-    timeZone: "",
-    emailAddress: "",
-    gamebuddyUsername: "",
-    password: "",
-    warzoneUsername: "",
-  };
-
-  const [submitSwitcher, setSubmitSwitcher] = useState(props.submitSwitcher);
+  // const blankGamingProfile = {
+  //   platform: "",
+  //   gameMap: "",
+  //   mode: "",
+  //   kd: "",
+  //   gameStyle: "",
+  //   mic: "",
+  //   lang: "",
+  //   days: "",
+  //   time: "",
+  //   timeZone: "",
+  //   emailAddress: "",
+  //   gamebuddyUsername: "",
+  //   password: "",
+  //   warzoneUsername: "",
+  // };
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
 
@@ -86,13 +86,12 @@ const MyProfileForm = (props) => {
     });
   };
 
-  const submitHandler = (event) => {
-    // event.preventDefault();
+  const submitHandler = (event) => {   
     const gamebuddyUsername = loginRepository.retrieve()[0];
+    profileRepository.delete(gamebuddyUsername);
     const storedSignupValues = signupRepository.retrieve();
-    const filteredStoredSignupValues = storedSignupValues.filter((item) => {
+    storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
-        console.log(item.gamebuddyUsername === gamebuddyUsername);
         const updateGamingProfile = {
           ...gamingProfile,
           emailAddress: item.emailAddress,
@@ -100,29 +99,10 @@ const MyProfileForm = (props) => {
           password: item.password,
           warzoneUsername: item.warzoneUsername,
         };
-        console.log(gamingProfile);
         profileRepository.save(updateGamingProfile);
       }
       return item.gamebuddyUsername === gamebuddyUsername;
     });
-  };
-     
-   // TRY TO CREATE THE PROFILE, then edit! WORKS OK
-
-   // BUT IF YOU REMOVE THE ARRAY MANUALLY FROM THE STORAGE, when you go to create a new profile
-   // editHandler get called instead of submitHandler! (you can see it beacuse you get the specific alert!)
-   // it works...the reason is beacuse the state submitSwitcher do not get update to "Create profile?"
-   // I mean...shall we leave it like this????
-
-  const editHandler = (event) => {
-    const gamebuddyUsername = loginRepository.retrieve()[0];
-    // const usersFullProfiles = profileRepository.retrieve();
-    // const filteredUsersFullProfiles = usersFullProfiles.filter((item) => {
-    //   return item.gamebuddyUsername !== gamebuddyUsername;
-    // });
-    profileRepository.delete(gamebuddyUsername);
-    submitHandler()
-    alert("editing");
   };
 
   return (
@@ -148,11 +128,7 @@ const MyProfileForm = (props) => {
               ></button>
             </div>
             <div className="modal-body">
-              <form
-                onSubmit={
-                  submitSwitcher === "Create" ? submitHandler : editHandler
-                }
-              >
+              <form onSubmit={submitHandler}>
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Platform</label>
                   <select

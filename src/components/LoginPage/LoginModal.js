@@ -12,16 +12,7 @@ const LoginModal = () => {
     password: "",
   };
 
-  const blankValidationErrors = {
-    gamebuddyUsername: null,
-    password: null,
-  };
-
   const [loginValues, setLoginValues] = useState(blankLoginValues);
-
-  const [validationErrors, setValidationErrors] = useState(
-    blankValidationErrors
-  );
 
   const gamebuddyUsernameHandler = (event) => {
     setLoginValues((previousLoginValues) => {
@@ -39,43 +30,18 @@ const LoginModal = () => {
     const storedSignupValues = signupRepository.retrieve();
 
     const filteredLocalStorage = storedSignupValues.filter((item) => {
-      if (item.gamebuddyUsername === loginValues.gamebuddyUsername) {
-        setValidationErrors((previousValidationErrors) => {
-          return { ...previousValidationErrors, gamebuddyUsername: null };
-        });
-      } else {
-        setValidationErrors((previousValidationErrors) => {
-          return { ...previousValidationErrors, gamebuddyUsername: "error" };
-        });
-      }
-      if (item.password === loginValues.password) {
-        setValidationErrors((previousValidationErrors) => {
-          return { ...previousValidationErrors, password: null };
-        });
-      } else {
-        setValidationErrors((previousValidationErrors) => {
-          return { ...previousValidationErrors, password: "error" };
-        });
-      }
       return (
         item.gamebuddyUsername === loginValues.gamebuddyUsername &&
         item.password === loginValues.password
       );
     });
     if (filteredLocalStorage[0]) {
-      loginRepository.list();
-      if (loginRepository.list().length < 1) {
-        loginRepository.save(loginValues.gamebuddyUsername);
-      }
-      alert("Logged in!");   
-      setValidationErrors(blankValidationErrors);
+      loginRepository.save(loginValues.gamebuddyUsername);
+      alert("Logged in!");
     } else {
       event.preventDefault();
+      alert("User not found! Try again");
     }
-  };
-
-  const closeHandler = () => {
-    setValidationErrors(blankValidationErrors);
   };
 
   return (
@@ -103,23 +69,9 @@ const LoginModal = () => {
             <div className="modal-body">
               <form onSubmit={loginHandler}>
                 <div className="mb-3">
-                  {validationErrors.gamebuddyUsername && (
-                    <label
-                      className="col-form-label cssBold text-danger"
-                      required
-                    >
-                      The gaming buddy username you selected is not recognised!
-                      Try again!
-                    </label>
-                  )}
-                  {!validationErrors.gamebuddyUsername && (
-                    <label className="col-form-label cssBold" required>
-                      Gaming Buddy username:
-                    </label>
-                  )}
-                  {/* <label className="col-form-label cssBold">
+                  <label className="col-form-label cssBold">
                     Gaming Buddy username
-                  </label> */}
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -131,22 +83,9 @@ const LoginModal = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  {validationErrors.gamebuddyUsername && (
-                    <label
-                      className="col-form-label cssBold text-danger"
-                      required
-                    >
-                      The password you selected is not recognised! Try again!
-                    </label>
-                  )}
-                  {!validationErrors.gamebuddyUsername && (
-                    <label className="col-form-label cssBold" required>
-                      Password:
-                    </label>
-                  )}
-                  {/* <label className="col-form-label cssBold" required>
+                  <label className="col-form-label cssBold" required>
                     Password:
-                  </label> */}
+                  </label>
                   <input
                     type="password"
                     className="form-control"
@@ -163,7 +102,6 @@ const LoginModal = () => {
                     className="btn btn-danger"
                     type="button"
                     data-bs-dismiss="modal"
-                    onClick={closeHandler}
                   >
                     Close
                   </button>
