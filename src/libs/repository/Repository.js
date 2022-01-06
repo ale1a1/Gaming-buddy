@@ -27,35 +27,33 @@ export class Repository {
     localStorage.setItem(this.repositoryName, JSON.stringify(objects));
   }
 
-  //CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //RETRIEVE IS CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!
   retrieve() {
     return JSON.parse(localStorage.getItem(this.repositoryName));
   }
 
- 
-  // NOT IN USE FOR NOW !!!!!!!!
-  // /**
-  //  *
-  //  * @param {Function} filter
-  //  * @return {Array<Object>}
-  //  */
-  // get(filter) {
-  //   return this.list.filter(filter);
-  // }
-
-  // /**
-  //  * @param {Function}
-  //  * @return {Object}
-  //  */
-  // findOne(filter) {
-  //   const filtered = this.get(filter);
-  //   if (filtered && filtered.length > 0) {
-  //     return filtered[0];
-  //   }
-  // }
+  /**
+   *
+   * @param {Function} filter
+   * @return {Array<Object>}
+   */
+  get(filter) {
+    return this.list.filter(filter);
+  }
 
   /**
-   * Objects that doesn't match the filter function will be deleted from repository
+   * @param {Function}
+   * @return {Object}
+   */
+  findOne(filter) {
+    const filtered = this.get(filter);
+    if (filtered.length > 0) {
+      return filtered[0];
+    }
+  }
+
+  /**
+   * Objects that don't match the filter function will be deleted from repository
    * @param { Function } filter
    */
   delete(filter) {

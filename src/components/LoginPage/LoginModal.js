@@ -26,15 +26,26 @@ const LoginModal = () => {
     });
   };
 
-  const loginHandler = (event) => {
-    const storedSignupValues = signupRepository.retrieve();
+  // const loginHandler = (event) => {
+  //   const storedSignupValues = signupRepository.retrieve();
 
-    const filteredLocalStorage = storedSignupValues.filter((item) => {
-      return (
-        item.gamebuddyUsername === loginValues.gamebuddyUsername &&
-        item.password === loginValues.password
-      );
-    });
+  //   const filteredLocalStorage = storedSignupValues.filter((item) => {
+  //     return (
+  //       item.gamebuddyUsername === loginValues.gamebuddyUsername &&
+  //       item.password === loginValues.password
+  //     );
+  //   });
+  //   if (filteredLocalStorage[0]) {
+  //     loginRepository.save(loginValues.gamebuddyUsername);
+  //     alert("Logged in!");
+  //   } else {
+  //     event.preventDefault();
+  //     alert("User not found! Try again");
+  //   }
+  // };
+
+  const loginHandler = (event) => {
+    const filteredLocalStorage = signupRepository.findUser(loginValues)
     if (filteredLocalStorage[0]) {
       loginRepository.save(loginValues.gamebuddyUsername);
       alert("Logged in!");
@@ -43,6 +54,7 @@ const LoginModal = () => {
       alert("User not found! Try again");
     }
   };
+
 
   return (
     <Fragment>

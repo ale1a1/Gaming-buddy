@@ -19,10 +19,20 @@ export class SignupRepository {
     return this.repository.list();
   }
 
-  //CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //RETRIEVE CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   retrieve() {
     return this.repository.retrieve();
   }
+
+
+  findUser({ gamebuddyUsername, password }) {
+    return this.repository.findOne(
+      (item) =>
+        item.gamebuddyUsername === gamebuddyUsername &&
+        item.password === password
+    );
+  }
+  
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
   // /**
