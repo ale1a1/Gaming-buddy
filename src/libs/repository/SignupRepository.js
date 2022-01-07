@@ -20,9 +20,9 @@ export class SignupRepository {
   }
 
   //RETRIEVE CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  retrieve() {
-    return this.repository.retrieve();
-  }
+  // retrieve() {
+  //   return this.repository.retrieve();
+  // }
 
 
   findUser({ gamebuddyUsername, password }) {

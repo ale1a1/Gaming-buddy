@@ -20,9 +20,9 @@ export class LogoutRepository {
   }
 
   //CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  retrieve() {
-    return this.repository.retrieve();
-  }
+  // retrieve() {
+  //   return this.repository.retrieve();
+  // }
 
   /**
    *

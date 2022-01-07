@@ -28,9 +28,9 @@ export class Repository {
   }
 
   //RETRIEVE IS CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  retrieve() {
-    return JSON.parse(localStorage.getItem(this.repositoryName));
-  }
+  // retrieve() {
+  //   return JSON.parse(localStorage.getItem(this.repositoryName));
+  // }
 
   /**
    *

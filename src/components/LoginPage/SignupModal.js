@@ -53,15 +53,19 @@ const SignupModal = () => {
   };
 
   const signupHandler = (event) => {
-    if (!signupRepository.list().length) {
-      signupRepository.save(signupValues);
-      loginRepository.list();
-      if (loginRepository.list().length < 1) {
-        loginRepository.save(signupValues.gamebuddyUsername);
-      }
-      alert("User created!Click ok to login");
-    } else {
-      const storedSignupValues = signupRepository.retrieve();  
+    // event.preventDefault();
+    // console.log(!signupRepository.list().length);
+    // if (!signupRepository.list().length) {
+    //   signupRepository.save(signupValues);
+    //   loginRepository.list();
+    //   if (loginRepository.list().length < 1) {
+    //     loginRepository.save(signupValues.gamebuddyUsername);
+    //   }
+    //   alert("User created!Click ok to login");
+    // } else {
+      // const storedSignupValues = signupRepository.retrieve();
+
+      const storedSignupValues = signupRepository.list();
 
       const filteredLocalStorage = storedSignupValues.filter((item) => {
         if (item.emailAddress === signupValues.emailAddress) {
@@ -97,19 +101,21 @@ const SignupModal = () => {
           item.warzoneUsername === signupValues.warzoneUsername
         );
       });
-      
+
       if (!filteredLocalStorage[0]) {
         signupRepository.save(signupValues);
         loginRepository.list();
         if (loginRepository.list().length < 1) {
           loginRepository.save(signupValues.gamebuddyUsername);
         }
-        alert("User created!Click ok to login");        
+        alert("User created!Click ok to login");
       } else {
         event.preventDefault();
       }
-    }
+    // }
   };
+
+
   const closeHandler = () => {
     setValidationErrors(blankValidationErrors);
   };

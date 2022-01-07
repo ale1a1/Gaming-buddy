@@ -87,9 +87,11 @@ const MyProfileForm = (props) => {
   };
 
   const submitHandler = (event) => {   
-    const gamebuddyUsername = loginRepository.retrieve()[0];
+    // const gamebuddyUsername = loginRepository.retrieve()[0];
+    const gamebuddyUsername = loginRepository.list()[0];
     profileRepository.delete(gamebuddyUsername);
-    const storedSignupValues = signupRepository.retrieve();
+    // const storedSignupValues = signupRepository.retrieve();
+    const storedSignupValues = signupRepository.list();
     storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
         const updateGamingProfile = {
