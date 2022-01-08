@@ -27,11 +27,6 @@ export class Repository {
     localStorage.setItem(this.repositoryName, JSON.stringify(objects));
   }
 
-  //RETRIEVE IS CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // retrieve() {
-  //   return JSON.parse(localStorage.getItem(this.repositoryName));
-  // }
-
   /**
    *
    * @param {Function} filter
@@ -48,7 +43,7 @@ export class Repository {
   findOne(filter) {
     const filtered = this.get(filter);
     if (filtered.length > 0) {
-      return filtered[0];      
+      return filtered[0];
     }
   }
 

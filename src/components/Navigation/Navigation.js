@@ -3,9 +3,6 @@ import { LoginRepository } from "../../libs/repository/LoginRepository";
 
 const Navigation = (props) => {
   const loginRepository = new LoginRepository();
-
-  // const gamebuddyUsername = loginRepository.retrieve();
-  
   const gamebuddyUsername = loginRepository.list();
 
   return (

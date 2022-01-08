@@ -19,10 +19,7 @@ export class LoginRepository {
     return this.repository.list();
   }
 
-  //CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // retrieve() {
-  //   return this.repository.retrieve();
-  // }
+  
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
   // /**

@@ -19,12 +19,6 @@ export class SignupRepository {
     return this.repository.list();
   }
 
-  //RETRIEVE CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // retrieve() {
-  //   return this.repository.retrieve();
-  // }
-
-
   findUser({ gamebuddyUsername, password }) {
     return this.repository.findOne(
       (item) =>
@@ -32,7 +26,6 @@ export class SignupRepository {
         item.password === password
     );
   }
-
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
   // /**

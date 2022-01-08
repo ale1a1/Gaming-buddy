@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import MyProfileForm from "./MyProfileForm";
-import ".././../style.css";
+import "../../style.css";
 import "./MyProfileTable.css";
 
 const MyProfileTable = (props) => {

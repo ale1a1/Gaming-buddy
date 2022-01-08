@@ -9,24 +9,7 @@ const MyProfileForm = (props) => {
   const profileRepository = new ProfileRepository();
   const loginRepository = new LoginRepository();
   const signupRepository = new SignupRepository();
-  const blankGamingProfile= new BlankGamingProfile()
-
-  // const blankGamingProfile = {
-  //   platform: "",
-  //   gameMap: "",
-  //   mode: "",
-  //   kd: "",
-  //   gameStyle: "",
-  //   mic: "",
-  //   lang: "",
-  //   days: "",
-  //   time: "",
-  //   timeZone: "",
-  //   emailAddress: "",
-  //   gamebuddyUsername: "",
-  //   password: "",
-  //   warzoneUsername: "",
-  // };
+  const blankGamingProfile= new BlankGamingProfile()  
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
 
@@ -86,11 +69,9 @@ const MyProfileForm = (props) => {
     });
   };
 
-  const submitHandler = (event) => {   
-    // const gamebuddyUsername = loginRepository.retrieve()[0];
+  const submitHandler = (event) => {       
     const gamebuddyUsername = loginRepository.list()[0];
-    profileRepository.delete(gamebuddyUsername);
-    // const storedSignupValues = signupRepository.retrieve();
+    profileRepository.delete(gamebuddyUsername);    
     const storedSignupValues = signupRepository.list();
     storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
@@ -239,7 +220,7 @@ const MyProfileForm = (props) => {
                     </option>
                     <option value="English">English</option>
                     <option value="Spanish">Spanish</option>
-                    <option value="French">Spanish</option>
+                    <option value="French">French</option>
                   </select>
                 </div>
 

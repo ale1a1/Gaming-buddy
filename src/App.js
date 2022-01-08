@@ -17,7 +17,6 @@ function App() {
   const loginRepository = new LoginRepository();
 
   useEffect(() => {
-    // if (loginRepository.retrieve()) {
       if (loginRepository.list()[0]) {
       setIsLoggedIn(true);
     } else {

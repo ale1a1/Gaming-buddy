@@ -17,12 +17,6 @@ export class ProfileRepository {
     return this.repository.list();
   }
 
-  //CREATED BY ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // retrieve() {
-  //   return this.repository.retrieve();
-  // }
-
-
   /**
    *
    * @param {string} email
@@ -31,9 +25,7 @@ export class ProfileRepository {
     this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
   }
 
-
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
-
 
   // /**
   //  *

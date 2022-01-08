@@ -8,9 +8,7 @@ import { LoginRepository } from "../../libs/repository/LoginRepository";
 
 const MyProfile = (props) => {
   const profileRepository = new ProfileRepository();
-  const loginRepository = new LoginRepository();
-  // const gamebuddyUsername = loginRepository.retrieve()[0];
-  // const usersFullProfiles = profileRepository.retrieve();
+  const loginRepository = new LoginRepository();  
   const gamebuddyUsername = loginRepository.list()[0];
   const usersFullProfiles = profileRepository.list();
   let filteredUsersFullProfiles = "";

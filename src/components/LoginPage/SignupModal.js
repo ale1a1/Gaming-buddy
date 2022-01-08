@@ -53,68 +53,53 @@ const SignupModal = () => {
   };
 
   const signupHandler = (event) => {
-    // event.preventDefault();
-    // console.log(!signupRepository.list().length);
-    // if (!signupRepository.list().length) {
-    //   signupRepository.save(signupValues);
-    //   loginRepository.list();
-    //   if (loginRepository.list().length < 1) {
-    //     loginRepository.save(signupValues.gamebuddyUsername);
-    //   }
-    //   alert("User created!Click ok to login");
-    // } else {
-      // const storedSignupValues = signupRepository.retrieve();
-
-      const storedSignupValues = signupRepository.list();
-
-      const filteredLocalStorage = storedSignupValues.filter((item) => {
-        if (item.emailAddress === signupValues.emailAddress) {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, emailAddress: "error" };
-          });
-        } else {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, emailAddress: null };
-          });
-        }
-        if (item.gamebuddyUsername === signupValues.gamebuddyUsername) {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, gamebuddyUsername: "error" };
-          });
-        } else {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, gamebuddyUsername: null };
-          });
-        }
-        if (item.warzoneUsername === signupValues.warzoneUsername) {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, warzoneUsername: "error" };
-          });
-        } else {
-          setValidationErrors((previousValidationErrors) => {
-            return { ...previousValidationErrors, warzoneUsername: null };
-          });
-        }
-        return (
-          item.emailAddress === signupValues.emailAddress ||
-          item.gamebuddyUsername === signupValues.gamebuddyUsername ||
-          item.warzoneUsername === signupValues.warzoneUsername
-        );
-      });
-
-      if (!filteredLocalStorage[0]) {
-        signupRepository.save(signupValues);
-        loginRepository.list();
-        if (loginRepository.list().length < 1) {
-          loginRepository.save(signupValues.gamebuddyUsername);
-        }
-        alert("User created!Click ok to login");
+    const storedSignupValues = signupRepository.list();
+    const filteredLocalStorage = storedSignupValues.filter((item) => {
+      if (item.emailAddress === signupValues.emailAddress) {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, emailAddress: "error" };
+        });
       } else {
-        event.preventDefault();
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, emailAddress: null };
+        });
       }
-    // }
-  };
+      if (item.gamebuddyUsername === signupValues.gamebuddyUsername) {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, gamebuddyUsername: "error" };
+        });
+      } else {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, gamebuddyUsername: null };
+        });
+      }
+      if (item.warzoneUsername === signupValues.warzoneUsername) {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, warzoneUsername: "error" };
+        });
+      } else {
+        setValidationErrors((previousValidationErrors) => {
+          return { ...previousValidationErrors, warzoneUsername: null };
+        });
+      }
+      return (
+        item.emailAddress === signupValues.emailAddress ||
+        item.gamebuddyUsername === signupValues.gamebuddyUsername ||
+        item.warzoneUsername === signupValues.warzoneUsername
+      );
+    });
 
+    if (!filteredLocalStorage[0]) {
+      signupRepository.save(signupValues);
+      loginRepository.list();
+      if (loginRepository.list().length < 1) {
+        loginRepository.save(signupValues.gamebuddyUsername);
+      }
+      alert("User created!Click ok to login");
+    } else {
+      event.preventDefault();
+    }
+  };
 
   const closeHandler = () => {
     setValidationErrors(blankValidationErrors);
