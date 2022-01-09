@@ -1,11 +1,8 @@
 .searchABuddy {
-  background: url("/src/img/searchABuddyPage.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
-}
-
-.transparent-dark {
-  background-color: rgba(0, 0, 0, 0.658);
-}
+    background: url("/src/img/searchABuddyPage.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+  }
+  

@@ -1,14 +1,13 @@
 import React, { Fragment, useState } from "react";
+import "../SearchABuddy/SearchABuddyForm.css";
 import { ProfileRepository } from "../../libs/repository/ProfileRepository";
-import { LoginRepository } from "../../libs/repository/LoginRepository";
-import { SignupRepository } from "../../libs/repository/SignupRepository";
+import { SearchRepository } from "../../libs/repository/SearchRepository";
 import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
-import "../MyProfile/MyProfileForm.css";
+import "../../style.css";
 
-const MyProfileForm = (props) => {
+const SearchABuddyForm = (props) => {
+  const searchRepository = new SearchRepository();
   const profileRepository = new ProfileRepository();
-  const loginRepository = new LoginRepository();
-  const signupRepository = new SignupRepository();
   const blankGamingProfile = new BlankGamingProfile();
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
@@ -69,49 +68,25 @@ const MyProfileForm = (props) => {
     });
   };
 
-  const submitHandler = (event) => {    
-    const gamebuddyUsername = loginRepository.list()[0];
-    profileRepository.delete(gamebuddyUsername);
-    const storedSignupValues = signupRepository.list();   
-    storedSignupValues.filter((item) => {
-      if (item.gamebuddyUsername === gamebuddyUsername) {
-        const updateGamingProfile = {
-          ...gamingProfile,
-          emailAddress: item.emailAddress,
-          gamebuddyUsername: item.gamebuddyUsername,
-          password: item.password,
-          warzoneUsername: item.warzoneUsername,
-        };
-        profileRepository.save(updateGamingProfile);
-      }
-      return item.gamebuddyUsername === gamebuddyUsername;
-    });
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const searchedBuddies = profileRepository.findUser(gamingProfile);
+    alert("searching " + gamingProfile);
+    if (searchedBuddies) {
+      localStorage.removeItem("FoundBuddies");
+      searchRepository.save(searchedBuddies);
+      props.checkSearchStatus(true)
+    } else {
+      alert("No matches");
+    }
   };
-
   return (
-    <Fragment>
-      <div
-        className="modal fade"
-        id="profileForm"
-        tabIndex="-1"
-        aria-labelledby="getOfferLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="getOfferLabel">
-                CREATE YOUR GAMING PROFILE
-              </h5>
-              <button
-                className="btn-close"
-                type="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <form onSubmit={submitHandler}>
+    <Fragment>      
+        <div className="container mt-7">
+          <form className="mt-5 w-50 h-25" onSubmit={submitHandler}>
+            <div className="container text-light transparent-dark">
+              <h1 className="ms-5 mt-5 text-light">CHOOSE THE CRITERIA</h1>
+              <div class="d-flex justify-content-around">
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Platform</label>
                   <select
@@ -151,27 +126,37 @@ const MyProfileForm = (props) => {
                     class="form-select"
                     aria-label="select role"
                     onChange={modeHandler}
-                    required
                   >
-                    <option selected value="">
-                      select
+                    <option selected value="Any">
+                      any
                     </option>
                     <option value="Duos">Duos</option>
                     <option value="Trios">Trios</option>
                     <option value="Quads">Quads</option>
                   </select>
                 </div>
+              </div>
+              <div class="d-flex justify-content-around">
                 <div className="mb-3">
                   <label className="col-form-label cssBold">KD</label>
-                  <input
-                    className="ms-3 col-2"
-                    type="number"
-                    id="inputNumber"
-                    name="inputNumber"
+                  <select
+                    class="form-select"
+                    aria-label="select style"
                     onChange={KdHandler}
-                    step="0.01"
-                    required
-                  ></input>
+                  >
+                    <option selected value="Any">
+                      any
+                    </option>
+                    <option value=">1">Over 1</option>
+                    <option value="<1">Under 1</option>
+                    <option value="0-0.5">0 - 0.5</option>
+                    <option value="0.5-1.5">0.5 - 1.5</option>
+                    <option value="1--1.5">1 - 1.5</option>
+                    <option value="1.5-2.5">1.5 - 2.5</option>
+                    <option value="1.5-2.5">1.5 - 2.5</option>
+                    <option value="1.5-2.5">1.5 - 2.5</option>
+                    <option value=">2.5">Over 2.5</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Game style</label>
@@ -179,10 +164,9 @@ const MyProfileForm = (props) => {
                     class="form-select"
                     aria-label="select style"
                     onChange={gameStyleHandler}
-                    required
                   >
-                    <option selected value="">
-                      select
+                    <option selected value="Any">
+                      any
                     </option>
                     <option value="Casual">Casual</option>
                     <option value="Aggressive pusher">Aggressive pusher</option>
@@ -207,16 +191,17 @@ const MyProfileForm = (props) => {
                     <option value="No">No</option>
                   </select>
                 </div>
+              </div>
+              <div class="d-flex justify-content-around">
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Language</label>
                   <select
                     class="form-select"
                     aria-label="select language"
                     onChange={langHandler}
-                    required
                   >
-                    <option selected value="">
-                      select
+                    <option selected value="any">
+                      any
                     </option>
                     <option value="English">English</option>
                     <option value="Spanish">Spanish</option>
@@ -274,25 +259,15 @@ const MyProfileForm = (props) => {
                     <option value="EST">EST</option>
                   </select>
                 </div>
-                <div className="modal-footer">
-                  <button
-                    className="btn btn-danger"
-                    type="button"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button className="btn btn-primary" type="submit">
-                    {props.submitButton}
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
-          </div>
+            <button className="btn btn-outline-light btn-lg background mt-5 ms-5">
+              SEARCH
+            </button>
+          </form>
         </div>
-      </div>
     </Fragment>
   );
 };
 
-export default MyProfileForm;
+export default SearchABuddyForm;

@@ -1,283 +1,33 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "../SearchABuddy/SearchABuddy.css";
 import Navigation from "../Navigation/Navigation";
-import { ProfileRepository } from "../../libs/repository/ProfileRepository";
-import { LoginRepository } from "../../libs/repository/LoginRepository";
-import { SignupRepository } from "../../libs/repository/SignupRepository";
-import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
-// import ".././../style.css";
-import "../../style.css";
+import { SearchRepository } from "../../libs/repository/SearchRepository";
+import SearchABuddyForm from "./SearchABuddyForm";
+import SearchABuddyTable from "./SearchABuddyTable";
 
 const SearchABuddy = (props) => {
-  const profileRepository = new ProfileRepository();
-  const loginRepository = new LoginRepository();
-  const signupRepository = new SignupRepository();
-  const blankGamingProfile = new BlankGamingProfile();
+  const searchRepository = new SearchRepository();
 
-  const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
+  const [isSearchDone, setIsearchDone] = useState(false);
 
-  const platformHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, platform: event.target.value };
-    });
-  };
-  const mapHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, gameMap: event.target.value };
-    });
-  };
-  const modeHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, mode: event.target.value };
-    });
-  };
-  const KdHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, kd: event.target.value };
-    });
-  };
+//   useEffect(() => {
+//     if (searchRepository.list()[0]) {
+//       setIsearchDone(true);
+//     } else {
+//       setIsearchDone(false);
+//     }
+//   }, []);
 
-  const gameStyleHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, gameStyle: event.target.value };
-    });
-  };
+    const checkSearchStatus = (value) => {
+      setIsearchDone(value);
+    };
 
-  const micHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, mic: event.target.value };
-    });
-  };
-  const langHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, lang: event.target.value };
-    });
-  };
-
-  const daysHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, days: event.target.value };
-    });
-  };
-
-  const timeHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, time: event.target.value };
-    });
-  };
-
-  const timeZoneHandler = (event) => {
-    setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, timeZone: event.target.value };
-    });
-  };
-
-  const submitHandler = (event) => {
-    const gamebuddyUsername = loginRepository.list()[0];
-    profileRepository.delete(gamebuddyUsername);
-    const storedSignupValues = signupRepository.list();
-    storedSignupValues.filter((item) => {
-      if (item.gamebuddyUsername === gamebuddyUsername) {
-        const updateGamingProfile = {
-          ...gamingProfile,
-          emailAddress: item.emailAddress,
-          gamebuddyUsername: item.gamebuddyUsername,
-          password: item.password,
-          warzoneUsername: item.warzoneUsername,
-        };
-        profileRepository.save(updateGamingProfile);
-      }
-      return item.gamebuddyUsername === gamebuddyUsername;
-    });
-  };
   return (
     <Fragment>
       <div className="searchABuddy">
         <Navigation logoutHandler={props.logoutHandler} searchClass="active" />
-        <div className="container mt-7">
-          <form className="mt-5 w-50 h-25" onSubmit={submitHandler}>
-            <div className="container text-light transparent-dark">
-              <h1 className="ms-5 mt-5 text-light">CHOOSE THE CRITERIA</h1>
-              <div class="d-flex justify-content-around">
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Platform</label>
-                  <select
-                    class="form-select"
-                    aria-label="select platform"
-                    onChange={platformHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="Xbox">Xbox</option>
-                    <option value="Play Station">Play Station</option>
-                    <option value="Computer">Computer</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Game</label>
-                  <select
-                    class="form-select"
-                    aria-label="select game"
-                    onChange={mapHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="Caldera">Caldera</option>
-                    <option value="Caldera Vanguard">Caldera Vanguard</option>
-                    <option value="Rebirth">Rebirth</option>
-                    <option value="Rebirth">Plunder</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Mode</label>
-                  <select
-                    class="form-select"
-                    aria-label="select role"
-                    onChange={modeHandler}
-                  >
-                    <option selected value="Any">
-                      any
-                    </option>
-                    <option value="Duos">Duos</option>
-                    <option value="Trios">Trios</option>
-                    <option value="Quads">Quads</option>
-                  </select>
-                </div>
-              </div>
-              <div class="d-flex justify-content-around">
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">KD</label>
-                  <select
-                    class="form-select"
-                    aria-label="select style"
-                    onChange={KdHandler}
-                  >
-                    <option selected value="Any">
-                      any
-                    </option>
-                    <option value=">1">Over 1</option>
-                    <option value="<1">Under 1</option>
-                    <option value="0-0.5">0 - 0.5</option>
-                    <option value="0.5-1.5">0.5 - 1.5</option>
-                    <option value="1--1.5">1 - 1.5</option>
-                    <option value="1.5-2.5">1.5 - 2.5</option>
-                    <option value="1.5-2.5">1.5 - 2.5</option>
-                    <option value="1.5-2.5">1.5 - 2.5</option>
-                    <option value=">2.5">Over 2.5</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Game style</label>
-                  <select
-                    class="form-select"
-                    aria-label="select style"
-                    onChange={gameStyleHandler}
-                  >
-                    <option selected value="Any">
-                      any
-                    </option>
-                    <option value="Casual">Casual</option>
-                    <option value="Aggressive pusher">Aggressive pusher</option>
-                    <option value="Strategic">Strategic</option>
-                    <option value="Strategic sniper">Strategic sniper</option>
-                    <option value="Camper">Camper</option>
-                  </select>
-                </div>
-
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Microphone</label>
-                  <select
-                    class="form-select"
-                    aria-label="select microphone"
-                    onChange={micHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </div>
-              </div>
-              <div class="d-flex justify-content-around">
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Language</label>
-                  <select
-                    class="form-select"
-                    aria-label="select language"
-                    onChange={langHandler}
-                  >
-                    <option selected value="any">
-                      any
-                    </option>
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
-                  </select>
-                </div>
-
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">
-                    Avaible (days)
-                  </label>
-                  <select
-                    class="form-select"
-                    aria-label="select days"
-                    onChange={daysHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="Monday-Friday">Monday-Friday</option>
-                    <option value="Weekend">Weekend</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">
-                    Avaible (time)
-                  </label>
-                  <select
-                    class="form-select"
-                    aria-label="select time"
-                    onChange={timeHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="9-11">9-11</option>
-                    <option value="7-9">7-9</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label className="col-form-label cssBold">Time zone</label>
-                  <select
-                    class="form-select"
-                    aria-label="select platform"
-                    onChange={timeZoneHandler}
-                    required
-                  >
-                    <option selected value="">
-                      select
-                    </option>
-                    <option value="GMT">GMT</option>
-                    <option value="PST">PST</option>
-                    <option value="EST">EST</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <button className="btn btn-outline-light btn-lg background mt-5 ms-5">
-              SEARCH
-            </button>
-          </form>
-        </div>
+        {!isSearchDone && <SearchABuddyForm checkSearchStatus={checkSearchStatus} />}
+        {isSearchDone && <SearchABuddyTable checkSearchStatus={checkSearchStatus} />}
       </div>
     </Fragment>
   );
