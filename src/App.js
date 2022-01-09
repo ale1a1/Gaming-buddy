@@ -10,11 +10,13 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 import { LoginRepository } from "./libs/repository/LoginRepository";
+import { ProfileRepository } from "./libs/repository/ProfileRepository";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginRepository = new LoginRepository();
+  const profileRepository = new ProfileRepository();
 
   useEffect(() => {
     if (loginRepository.list()[0]) {
@@ -29,8 +31,16 @@ function App() {
     setIsLoggedIn(false);
   };
 
-
   // logic for search compenent conditional rendering
+
+  useEffect(() => {
+    if (profileRepository.list()[0]) {
+      setIsearchDone(true);
+    } else {
+      setIsearchDone(false);
+    }
+  }, []);
+
   const [isSearchDone, setIsearchDone] = useState(false);
 
   const searchStatusTrue = () => {

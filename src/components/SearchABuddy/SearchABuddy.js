@@ -1,24 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment } from "react";
 import "../SearchABuddy/SearchABuddy.css";
 import Navigation from "../Navigation/Navigation";
-import { SearchRepository } from "../../libs/repository/SearchRepository";
+// import { SearchRepository } from "../../libs/repository/SearchRepository";
 import SearchABuddyForm from "./SearchABuddyForm";
 import SearchABuddyTable from "./SearchABuddyTable";
 
 const SearchABuddy = (props) => {
-  const searchRepository = new SearchRepository();
+  // const searchRepository = new SearchRepository();
 
-  const foundBuddies = searchRepository.list();
-
-  //   const [isSearchDone, setIsearchDone] = useState(false);
-
-  //   useEffect(() => {
-  //     if (searchRepository.list()[0]) {
-  //       setIsearchDone(true);
-  //     } else {
-  //       setIsearchDone(false);
-  //     }
-  //   }, []);
+  // const foundBuddies = searchRepository.list();
 
   return (
     <Fragment>

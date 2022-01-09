@@ -21,7 +21,7 @@ const MyProfileTable = (props) => {
   return (
     <Fragment>
       <div className="container">
-        <table class="table text-light transparent-dark mt-7 w-50 ml-10">
+        <table className="table text-light transparent-dark mt-7 w-50 ml-10">
           <tbody>
             <tr>
               <th scope="col">Gaming Buddy Username</th>
