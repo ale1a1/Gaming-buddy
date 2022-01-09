@@ -17,7 +17,7 @@ function App() {
   const loginRepository = new LoginRepository();
 
   useEffect(() => {
-      if (loginRepository.list()[0]) {
+    if (loginRepository.list()[0]) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -29,6 +29,18 @@ function App() {
     setIsLoggedIn(false);
   };
 
+
+  // logic for search compenent conditional rendering
+  const [isSearchDone, setIsearchDone] = useState(false);
+
+  const searchStatusTrue = () => {
+    setIsearchDone(true);
+  };
+  const searchStatusFalse = () => {
+    setIsearchDone(false);
+  };
+  // end of logic for search compenent conditional rendering
+
   const homePage = isLoggedIn ? (
     <MainPaige logoutHandler={logoutHandler} />
   ) : (
@@ -36,7 +48,12 @@ function App() {
   );
 
   const searchABuddy = isLoggedIn ? (
-    <SearchABuddy logoutHandler={logoutHandler} />
+    <SearchABuddy
+      searchStatus={isSearchDone}
+      searchStatusTrue={searchStatusTrue}
+      searchStatusFalse={searchStatusFalse}
+      logoutHandler={logoutHandler}
+    />
   ) : (
     <LoginPage />
   );

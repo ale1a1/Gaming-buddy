@@ -8,26 +8,28 @@ import SearchABuddyTable from "./SearchABuddyTable";
 const SearchABuddy = (props) => {
   const searchRepository = new SearchRepository();
 
-  const [isSearchDone, setIsearchDone] = useState(false);
+  const foundBuddies = searchRepository.list();
 
-//   useEffect(() => {
-//     if (searchRepository.list()[0]) {
-//       setIsearchDone(true);
-//     } else {
-//       setIsearchDone(false);
-//     }
-//   }, []);
+  //   const [isSearchDone, setIsearchDone] = useState(false);
 
-    const checkSearchStatus = (value) => {
-      setIsearchDone(value);
-    };
+  //   useEffect(() => {
+  //     if (searchRepository.list()[0]) {
+  //       setIsearchDone(true);
+  //     } else {
+  //       setIsearchDone(false);
+  //     }
+  //   }, []);
 
   return (
     <Fragment>
       <div className="searchABuddy">
         <Navigation logoutHandler={props.logoutHandler} searchClass="active" />
-        {!isSearchDone && <SearchABuddyForm checkSearchStatus={checkSearchStatus} />}
-        {isSearchDone && <SearchABuddyTable checkSearchStatus={checkSearchStatus} />}
+        {!props.searchStatus && (
+          <SearchABuddyForm searchStatusTrue={props.searchStatusTrue} />
+        )}
+        {props.searchStatus && (
+          <SearchABuddyTable searchStatusFalse={props.searchStatusFalse} />
+        )}
       </div>
     </Fragment>
   );
