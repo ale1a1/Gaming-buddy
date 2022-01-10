@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { SearchRepository } from "../../libs/repository/SearchRepository";
+import { MyBuddiesRepository } from "../../libs/repository/MyBuddiesRepository";
 import "../SearchABuddy/SearchABuddyForm.css";
 import "../../style.css";
 
@@ -8,9 +9,14 @@ const SearchABuddyTable = (props) => {
     localStorage.removeItem("FoundBuddies");
     props.searchStatusFalse();
   };
+  const myBuddiesRepository = new MyBuddiesRepository();  
+  const addBuddy = (buddy) => {
+    return ()=>{myBuddiesRepository.save(buddy);}   
+  };
+
   const searchRepository = new SearchRepository();
   const foundBuddies = searchRepository.list();
-  const gameBuddy = foundBuddies.map((item) => {
+  const gameBuddy = foundBuddies.map((item) => {    
     return (
       <tr>
         <td>{item.gamebuddyUsername}</td>
@@ -24,9 +30,15 @@ const SearchABuddyTable = (props) => {
         <td>{item.days}</td>
         <td>{item.time}</td>
         <td>{item.timeZone}</td>
-        <td> <button className="btn btn-outline-light background">
-             Add to my buddies list
-            </button></td>
+        <td>
+          {" "}
+          <button
+            onClick={addBuddy(item)}
+            className="btn btn-outline-light background"
+          >
+            Add to my buddies list
+          </button>
+        </td>
       </tr>
     );
   });
