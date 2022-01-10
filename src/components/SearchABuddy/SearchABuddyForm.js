@@ -74,7 +74,8 @@ const SearchABuddyForm = (props) => {
     alert("searching " + gamingProfile);
     if (searchedBuddies) {
       localStorage.removeItem("FoundBuddies");
-      searchRepository.save(searchedBuddies);
+      // searchRepository.save(searchedBuddies);
+      localStorage.setItem("FoundBuddies", JSON.stringify(searchedBuddies))
       props.searchStatusTrue()
     } else {
       alert("No matches");

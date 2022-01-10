@@ -33,6 +33,8 @@ export class Repository {
    * @return {Array<Object>}
    */
   get(filter) {
+    console.log(this.list());
+    console.log(this.list().filter(filter));
     return this.list().filter(filter);
   }
 

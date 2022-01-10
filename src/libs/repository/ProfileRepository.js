@@ -29,13 +29,13 @@ export class ProfileRepository {
     time,
     timeZone,
   }) {
-    return this.repository.findOne(
+    return this.repository.get(
       (item) =>
-        item.days === days &&
+        (item.days === days || !days) &&
         item.gameMap === gameMap &&
-        item.gameStyle === gameStyle &&
+        (item.gameStyle === gameStyle || !gameStyle) &&
         // item.kd === kd &&
-        item.lang === lang &&
+        (item.lang === lang || !lang) &&
         item.mic === mic &&
         item.mode === mode &&
         item.platform === platform &&
@@ -43,6 +43,33 @@ export class ProfileRepository {
         item.timeZone === timeZone
     );
   }
+
+  // findUser({
+  //   days,
+  //   gameMap,
+  //   gameStyle,
+  //   // kd,
+  //   lang,
+  //   mic,
+  //   mode,
+  //   platform,
+  //   time,
+  //   timeZone,
+  // }) {
+  //   return this.repository.get(
+  //     (item) =>
+  //       item.days === days &&
+  //       item.gameMap === gameMap &&
+  //       item.gameStyle === gameStyle &&
+  //       // item.kd === kd &&
+  //       item.lang === lang &&
+  //       item.mic === mic &&
+  //       item.mode === mode &&
+  //       item.platform === platform &&
+  //       item.time === time &&
+  //       item.timeZone === timeZone
+  //   );
+  // }
 
   /**
    *
