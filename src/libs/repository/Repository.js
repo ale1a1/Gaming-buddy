@@ -32,9 +32,7 @@ export class Repository {
    * @param {Function} filter
    * @return {Array<Object>}
    */
-  get(filter) {
-    console.log(this.list());
-    console.log(this.list().filter(filter));
+  get(filter) {    
     return this.list().filter(filter);
   }
 
@@ -45,7 +43,11 @@ export class Repository {
   findOne(filter) {
     const filtered = this.get(filter);
     if (filtered.length > 0) {
+      console.log(filtered[0])
       return filtered[0];
+    }
+    else {
+      console.log("not found")
     }
   }
 

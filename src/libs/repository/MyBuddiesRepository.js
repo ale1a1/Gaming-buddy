@@ -17,40 +17,19 @@ export class MyBuddiesRepository {
     return this.repository.list();
   }
 
-//   findUser({
-//     days,
-//     gameMap,
-//     gameStyle,
-//     // kd,
-//     lang,
-//     mic,
-//     mode,
-//     platform,
-//     time,
-//     timeZone,
-//   }) {    
-//     return this.repository.findOne(
-//       (item) =>
-//         (item.days === days || !days) &&
-//         item.gameMap === gameMap &&
-//         (item.gameStyle === gameStyle || !gameStyle) &&
-//         // item.kd === kd &&
-//         (item.lang === lang || !lang) &&
-//         item.mic === mic &&
-//         item.mode === mode &&
-//         item.platform === platform &&
-//         item.time === time &&
-//         item.timeZone === timeZone
-//     );
-//   }
+  findUser(gamebuddyUsername) {
+    return this.repository.findOne(
+      (item) => item.gamebuddyUsername === gamebuddyUsername
+    );
+  }
 
-//   /**
-//    *
-//    * @param {string} email
-//    */
-//   delete(gamebuddyUsername) {
-//     this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
-//   }
+  //   /**
+  //    *
+  //    * @param {string} email
+  //    */
+  //   delete(gamebuddyUsername) {
+  //     this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
+  //   }
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
 

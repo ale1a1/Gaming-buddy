@@ -9,14 +9,16 @@ const SearchABuddyTable = (props) => {
     localStorage.removeItem("FoundBuddies");
     props.searchStatusFalse();
   };
-  const myBuddiesRepository = new MyBuddiesRepository();  
+  const myBuddiesRepository = new MyBuddiesRepository();
   const addBuddy = (buddy) => {
-    return ()=>{myBuddiesRepository.save(buddy);}   
+    return () => {
+      myBuddiesRepository.save(buddy);
+    };
   };
 
   const searchRepository = new SearchRepository();
   const foundBuddies = searchRepository.list();
-  const gameBuddy = foundBuddies.map((item) => {    
+  const gameBuddy = foundBuddies.map((item) => {
     return (
       <tr>
         <td>{item.gamebuddyUsername}</td>
