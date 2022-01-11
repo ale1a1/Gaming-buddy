@@ -11,12 +11,14 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 import { LoginRepository } from "./libs/repository/LoginRepository";
 import { ProfileRepository } from "./libs/repository/ProfileRepository";
+import { SearchRepository} from "./libs/repository/SearchRepository";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginRepository = new LoginRepository();
-  const profileRepository = new ProfileRepository();
+  // const profileRepository = new ProfileRepository();
+  const searchRepository = new SearchRepository()
 
   useEffect(() => {
     if (loginRepository.list()[0]) {
@@ -33,13 +35,13 @@ function App() {
 
   // logic for search compenent conditional rendering
 
-  useEffect(() => {
-    if (profileRepository.list()[0]) {
-      setIsearchDone(true);
-    } else {
-      setIsearchDone(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (searchRepository.list()[0]) {
+  //     setIsearchDone(true);
+  //   } else {
+  //     setIsearchDone(false);
+  //   }
+  // }, []);
 
   const [isSearchDone, setIsearchDone] = useState(false);
 

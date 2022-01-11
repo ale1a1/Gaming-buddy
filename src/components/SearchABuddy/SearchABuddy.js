@@ -15,10 +15,16 @@ const SearchABuddy = (props) => {
       <div className="searchABuddy">
         <Navigation logoutHandler={props.logoutHandler} searchClass="active" />
         {!props.searchStatus && (
-          <SearchABuddyForm searchStatusTrue={props.searchStatusTrue} />
+          <SearchABuddyForm
+            searchStatusTrue={props.searchStatusTrue}
+            searchStatusFalse={props.searchStatusFalse}
+          />
         )}
         {props.searchStatus && (
-          <SearchABuddyTable searchStatusFalse={props.searchStatusFalse} />
+          <SearchABuddyTable
+            searchStatusFalse={props.searchStatusFalse}
+            searchStatusTrue={props.searchStatusTrue}
+          />
         )}
       </div>
     </Fragment>
