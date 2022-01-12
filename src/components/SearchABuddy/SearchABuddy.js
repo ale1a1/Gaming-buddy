@@ -1,29 +1,52 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "../SearchABuddy/SearchABuddy.css";
 import Navigation from "../Navigation/Navigation";
-// import { SearchRepository } from "../../libs/repository/SearchRepository";
+
 import SearchABuddyForm from "./SearchABuddyForm";
 import SearchABuddyTable from "./SearchABuddyTable";
 
-const SearchABuddy = (props) => {
-  // const searchRepository = new SearchRepository();
+import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
+import { ProfileRepository } from "../../libs/repository/ProfileRepository";
 
-  // const foundBuddies = searchRepository.list();
+const SearchABuddy = (props) => {
+  const searchBuddyRepository = new SearchBuddyRepository();
+  const profileRepository = new ProfileRepository();
+
+  // const [searchStatus, setIsSearchDone] = useState(false);
+
+  // const searchStatusTrue = () => {
+  //   setIsSearchDone(true);
+  // };
+  // const searchStatusFalse = () => {
+  //   setIsSearchDone(false);
+  // };
+
+  const criteria = searchBuddyRepository.findOne();
+  const [criteriaState, setCriteria] = useState(criteria);
+
+  let foundUserProfiles = profileRepository.findUser(criteriaState || {});
+  const [showTable, setShowTable] = useState(true);
+
+  const updateCriteria = (criteria) => {
+    searchBuddyRepository.clear();
+    searchBuddyRepository.save(criteria);
+    setCriteria(criteria);
+    setShowTable(true);
+  };
+
+  const toggleShowTable = () => {
+    setShowTable(!showTable);
+  };
 
   return (
     <Fragment>
       <div className="searchABuddy">
         <Navigation logoutHandler={props.logoutHandler} searchClass="active" />
-        {!props.searchStatus && (
-          <SearchABuddyForm
-            searchStatusTrue={props.searchStatusTrue}
-            searchStatusFalse={props.searchStatusFalse}
-          />
-        )}
-        {props.searchStatus && (
+        {!showTable && <SearchABuddyForm updateCriteria={updateCriteria} />}
+        {showTable && (
           <SearchABuddyTable
-            searchStatusFalse={props.searchStatusFalse}
-            searchStatusTrue={props.searchStatusTrue}
+            toggleShowTable={toggleShowTable}
+            list={foundUserProfiles}
           />
         )}
       </div>

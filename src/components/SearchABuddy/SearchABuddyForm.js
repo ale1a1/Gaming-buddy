@@ -1,12 +1,10 @@
 import React, { Fragment, useState } from "react";
 import "../SearchABuddy/SearchABuddyForm.css";
 import { ProfileRepository } from "../../libs/repository/ProfileRepository";
-import { SearchRepository } from "../../libs/repository/SearchRepository";
 import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
 import "../../style.css";
 
 const SearchABuddyForm = (props) => {
-  const searchRepository = new SearchRepository();
   const profileRepository = new ProfileRepository();
   const blankGamingProfile = new BlankGamingProfile();
 
@@ -70,16 +68,17 @@ const SearchABuddyForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const searchedBuddies = profileRepository.findUser(gamingProfile);
-    alert("searching " + gamingProfile);
-    if (searchedBuddies) {
-      localStorage.removeItem("FoundBuddies");
-      // searchRepository.save(searchedBuddies);
-      localStorage.setItem("FoundBuddies", JSON.stringify(searchedBuddies));
-      props.searchStatusTrue();
-    } else {
-      alert("No matches");
-    }
+    //const searchedBuddies = profileRepository.findUser(gamingProfile);
+    console.debug("searching " + gamingProfile);
+    // if (searchedBuddies) {
+    // localStorage.removeItem("FoundBuddies");
+    // // searchRepository.save(searchedBuddies);
+    // localStorage.setItem("FoundBuddies", JSON.stringify(searchedBuddies));
+    // props.searchStatusTrue();
+    props.updateCriteria(gamingProfile);
+    // } else {
+    //   console.debug("No matches");
+    // }
   };
   return (
     <Fragment>
@@ -87,14 +86,14 @@ const SearchABuddyForm = (props) => {
         <form className="mt-5 w-50 h-25" onSubmit={submitHandler}>
           <div className="container text-light transparent-dark">
             <h1 className="ms-5 mt-5 text-light">CHOOSE THE CRITERIA</h1>
-            <div class="d-flex justify-content-around">
+            <div className="d-flex justify-content-around">
               <div className="mb-3">
                 <label className="col-form-label cssBold">Platform</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select platform"
                   onChange={platformHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select
@@ -107,10 +106,10 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Game</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select game"
                   onChange={mapHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select
@@ -124,7 +123,7 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Mode</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select role"
                   onChange={modeHandler}
                 >
@@ -137,11 +136,11 @@ const SearchABuddyForm = (props) => {
                 </select>
               </div>
             </div>
-            <div class="d-flex justify-content-around">
+            <div className="d-flex justify-content-around">
               <div className="mb-3">
                 <label className="col-form-label cssBold">KD</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select style"
                   onChange={KdHandler}
                 >
@@ -162,7 +161,7 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Game style</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select style"
                   onChange={gameStyleHandler}
                 >
@@ -180,10 +179,10 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Microphone</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select microphone"
                   onChange={micHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select
@@ -193,11 +192,11 @@ const SearchABuddyForm = (props) => {
                 </select>
               </div>
             </div>
-            <div class="d-flex justify-content-around">
+            <div className="d-flex justify-content-around">
               <div className="mb-3">
                 <label className="col-form-label cssBold">Language</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select language"
                   onChange={langHandler}
                 >
@@ -213,10 +212,10 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Avaible (days)</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select days"
                   onChange={daysHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select
@@ -228,10 +227,10 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Avaible (time)</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select time"
                   onChange={timeHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select
@@ -243,10 +242,10 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3">
                 <label className="col-form-label cssBold">Time zone</label>
                 <select
-                  class="form-select"
+                  className="form-select"
                   aria-label="select platform"
                   onChange={timeZoneHandler}
-                  required
+                  //required
                 >
                   <option selected value="">
                     select

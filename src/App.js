@@ -11,14 +11,14 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 import { LoginRepository } from "./libs/repository/LoginRepository";
 import { ProfileRepository } from "./libs/repository/ProfileRepository";
-import { SearchRepository} from "./libs/repository/SearchRepository";
+//import { SearchRepository} from "./libs/repository/SearchBuddyRepository";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginRepository = new LoginRepository();
   // const profileRepository = new ProfileRepository();
-  const searchRepository = new SearchRepository()
+  //const searchRepository = new SearchRepository();
 
   useEffect(() => {
     if (loginRepository.list()[0]) {
@@ -43,64 +43,110 @@ function App() {
   //   }
   // }, []);
 
-  const [isSearchDone, setIsearchDone] = useState(false);
+  // Moved to SearchABuddy.js
+  // const [isSearchDone, setIsearchDone] = useState(false);
 
-  const searchStatusTrue = () => {
-    setIsearchDone(true);
-  };
-  const searchStatusFalse = () => {
-    setIsearchDone(false);
-  };
+  // const searchStatusTrue = () => {
+  //   setIsearchDone(true);
+  // };
+  // const searchStatusFalse = () => {
+  //   setIsearchDone(false);
+  // };
   // end of logic for search compenent conditional rendering
 
-  const homePage = isLoggedIn ? (
+  // const homePage = isLoggedIn ? (
+  //   <MainPaige logoutHandler={logoutHandler} />
+  // ) : (
+  //   <LoginPage />
+  // );
+
+  // const searchABuddy = isLoggedIn ? (
+  //   <SearchABuddy
+  //     // searchStatus={isSearchDone}
+  //     // searchStatusTrue={searchStatusTrue}
+  //     // searchStatusFalse={searchStatusFalse}
+  //     logoutHandler={logoutHandler}
+  //   />
+  // ) : (
+  //   <LoginPage />
+  // );
+
+  // const myMessages = isLoggedIn ? (
+  //   <MyMessages logoutHandler={logoutHandler} />
+  // ) : (
+  //   <LoginPage />
+  // );
+  // const myBuddies = isLoggedIn ? (
+  //   <MyBuddies logoutHandler={logoutHandler} />
+  // ) : (
+  //   <LoginPage />
+  // );
+
+  // const myProfile = isLoggedIn ? (
+  //   <MyProfile logoutHandler={logoutHandler} />
+  // ) : (
+  //   <LoginPage />
+  // );
+
+  // One component rendered with the class component
+  const mainPage = new RouteComponent(
+    isLoggedIn,
     <MainPaige logoutHandler={logoutHandler} />
-  ) : (
-    <LoginPage />
-  );
-
-  const searchABuddy = isLoggedIn ? (
-    <SearchABuddy
-      searchStatus={isSearchDone}
-      searchStatusTrue={searchStatusTrue}
-      searchStatusFalse={searchStatusFalse}
-      logoutHandler={logoutHandler}
-    />
-  ) : (
-    <LoginPage />
-  );
-
-  const myMessages = isLoggedIn ? (
-    <MyMessages logoutHandler={logoutHandler} />
-  ) : (
-    <LoginPage />
-  );
-  const myBuddies = isLoggedIn ? (
-    <MyBuddies logoutHandler={logoutHandler} />
-  ) : (
-    <LoginPage />
-  );
-
-  const myProfile = isLoggedIn ? (
-    <MyProfile logoutHandler={logoutHandler} />
-  ) : (
-    <LoginPage />
   );
 
   return (
     <Fragment>
       <Router>
         <Routes>
-          <Route path="/" element={homePage}></Route>
-          <Route path="/Search" element={searchABuddy}></Route>
-          <Route path="/Messages" element={myMessages}></Route>
-          <Route path="/Buddies" element={myBuddies}></Route>
-          <Route path="/Profile" element={myProfile}></Route>
+          <Route path="/" element={mainPage.element()}></Route>
+          <Route
+            path="/Search"
+            element={loadPage(
+              isLoggedIn,
+              <SearchABuddy logoutHandler={logoutHandler} />
+            )}
+          ></Route>
+          <Route
+            path="/Messages"
+            element={loadPage(
+              loadPage,
+              <MyMessages logoutHandler={logoutHandler} />
+            )}
+          ></Route>
+          <Route
+            path="/Buddies"
+            element={loadPage(
+              isLoggedIn,
+              <MyBuddies logoutHandler={logoutHandler} />
+            )}
+          ></Route>
+          <Route
+            path="/Profile"
+            element={loadPage(
+              isLoggedIn,
+              <MyProfile logoutHandler={logoutHandler} />
+            )}
+          ></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </Router>
     </Fragment>
   );
+}
+
+function loadPage(isLoggedIn, component) {
+  return isLoggedIn ? component : <LoginPage />;
+}
+
+class RouteComponent {
+  constructor(isLoggedIn, component) {
+    this.isLoggedIn = isLoggedIn;
+    this.component = component;
+  }
+
+  element() {
+    return this.isLoggedIn ? this.component : <LoginPage />;
+  }
 }
 
 export default App;

@@ -115,7 +115,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Platform</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select platform"
                     onChange={platformHandler}
                     required
@@ -131,7 +131,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Game</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select game"
                     onChange={mapHandler}
                     required
@@ -148,7 +148,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Mode</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select role"
                     onChange={modeHandler}
                     required
@@ -176,7 +176,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Game style</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select style"
                     onChange={gameStyleHandler}
                     required
@@ -195,7 +195,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Microphone</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select microphone"
                     onChange={micHandler}
                     required
@@ -210,7 +210,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Language</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select language"
                     onChange={langHandler}
                     required
@@ -229,7 +229,7 @@ const MyProfileForm = (props) => {
                     Avaible (days)
                   </label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select days"
                     onChange={daysHandler}
                     required
@@ -246,7 +246,7 @@ const MyProfileForm = (props) => {
                     Avaible (time)
                   </label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select time"
                     onChange={timeHandler}
                     required
@@ -261,7 +261,7 @@ const MyProfileForm = (props) => {
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Time zone</label>
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="select platform"
                     onChange={timeZoneHandler}
                     required

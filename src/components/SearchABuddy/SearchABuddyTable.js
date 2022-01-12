@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
-import { SearchRepository } from "../../libs/repository/SearchRepository";
+//import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
 import { MyBuddiesRepository } from "../../libs/repository/MyBuddiesRepository";
 import "../SearchABuddy/SearchABuddyForm.css";
 import "../../style.css";
 
 const SearchABuddyTable = (props) => {
-  const removeFoundUsers = () => {
-    localStorage.removeItem("FoundBuddies");
-    props.searchStatusFalse();
-  };
+  // const removeFoundUsers = () => {
+  //   localStorage.removeItem("FoundBuddies");
+  //   props.searchStatusFalse();
+  // };
   const myBuddiesRepository = new MyBuddiesRepository();
   const addBuddy = (buddy) => {
     return () => {
@@ -16,9 +16,9 @@ const SearchABuddyTable = (props) => {
     };
   };
 
-  const searchRepository = new SearchRepository();
-  const foundBuddies = searchRepository.list();
-  const gameBuddy = foundBuddies.map((item) => {
+  //const searchRepository = new SearchBuddyRepository();
+  //const foundBuddies = searchRepository.list();
+  const gameBuddy = props.list.map((item) => {
     return (
       <tr>
         <td>{item.gamebuddyUsername}</td>
@@ -66,7 +66,7 @@ const SearchABuddyTable = (props) => {
         <tbody>{gameBuddy}</tbody>
       </table>
       <button
-        onClick={removeFoundUsers}
+        onClick={props.toggleShowTable}
         className="btn btn-outline-light btn-lg background mt-5 ms-5"
       >
         REFINE SEARCH
