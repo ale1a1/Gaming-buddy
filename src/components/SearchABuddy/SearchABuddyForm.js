@@ -93,7 +93,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select platform"
                   onChange={platformHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
@@ -109,7 +109,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select game"
                   onChange={mapHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
@@ -182,7 +182,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select microphone"
                   onChange={micHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
@@ -215,7 +215,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select days"
                   onChange={daysHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
@@ -230,7 +230,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select time"
                   onChange={timeHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
@@ -245,7 +245,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select platform"
                   onChange={timeZoneHandler}
-                  //required
+                  required
                 >
                   <option selected value="">
                     select
