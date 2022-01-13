@@ -12,20 +12,12 @@ const SearchABuddy = (props) => {
   const searchBuddyRepository = new SearchBuddyRepository();
   const profileRepository = new ProfileRepository();
 
-  // const [searchStatus, setIsSearchDone] = useState(false);
-
-  // const searchStatusTrue = () => {
-  //   setIsSearchDone(true);
-  // };
-  // const searchStatusFalse = () => {
-  //   setIsSearchDone(false);
-  // };
 
   const criteria = searchBuddyRepository.findOne();
   const [criteriaState, setCriteria] = useState(criteria);
 
-  let foundUserProfiles = profileRepository.findUser(criteriaState || {});
-  const [showTable, setShowTable] = useState(true);
+  let foundBuddies = profileRepository.findUser(criteriaState || {});
+  const [showTable, setShowTable] = useState(false);
 
   const updateCriteria = (criteria) => {
     searchBuddyRepository.clear();
@@ -37,7 +29,7 @@ const SearchABuddy = (props) => {
   const toggleShowTable = () => {
     setShowTable(!showTable);
   };
-
+  
   return (
     <Fragment>
       <div className="searchABuddy">
@@ -46,7 +38,7 @@ const SearchABuddy = (props) => {
         {showTable && (
           <SearchABuddyTable
             toggleShowTable={toggleShowTable}
-            list={foundUserProfiles}
+            foundBuddies={foundBuddies}
           />
         )}
       </div>

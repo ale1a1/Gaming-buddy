@@ -10,15 +10,14 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 import { LoginRepository } from "./libs/repository/LoginRepository";
-import { ProfileRepository } from "./libs/repository/ProfileRepository";
-//import { SearchRepository} from "./libs/repository/SearchBuddyRepository";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  
   const loginRepository = new LoginRepository();
-  // const profileRepository = new ProfileRepository();
-  //const searchRepository = new SearchRepository();
+
 
   useEffect(() => {
     if (loginRepository.list()[0]) {
@@ -33,62 +32,9 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  // logic for search compenent conditional rendering
 
-  // useEffect(() => {
-  //   if (searchRepository.list()[0]) {
-  //     setIsearchDone(true);
-  //   } else {
-  //     setIsearchDone(false);
-  //   }
-  // }, []);
 
-  // Moved to SearchABuddy.js
-  // const [isSearchDone, setIsearchDone] = useState(false);
-
-  // const searchStatusTrue = () => {
-  //   setIsearchDone(true);
-  // };
-  // const searchStatusFalse = () => {
-  //   setIsearchDone(false);
-  // };
-  // end of logic for search compenent conditional rendering
-
-  // const homePage = isLoggedIn ? (
-  //   <MainPaige logoutHandler={logoutHandler} />
-  // ) : (
-  //   <LoginPage />
-  // );
-
-  // const searchABuddy = isLoggedIn ? (
-  //   <SearchABuddy
-  //     // searchStatus={isSearchDone}
-  //     // searchStatusTrue={searchStatusTrue}
-  //     // searchStatusFalse={searchStatusFalse}
-  //     logoutHandler={logoutHandler}
-  //   />
-  // ) : (
-  //   <LoginPage />
-  // );
-
-  // const myMessages = isLoggedIn ? (
-  //   <MyMessages logoutHandler={logoutHandler} />
-  // ) : (
-  //   <LoginPage />
-  // );
-  // const myBuddies = isLoggedIn ? (
-  //   <MyBuddies logoutHandler={logoutHandler} />
-  // ) : (
-  //   <LoginPage />
-  // );
-
-  // const myProfile = isLoggedIn ? (
-  //   <MyProfile logoutHandler={logoutHandler} />
-  // ) : (
-  //   <LoginPage />
-  // );
-
-  // One component rendered with the class component
+  // This component is rendered with the class component, the others with the function load page
   const mainPage = new RouteComponent(
     isLoggedIn,
     <MainPaige logoutHandler={logoutHandler} />

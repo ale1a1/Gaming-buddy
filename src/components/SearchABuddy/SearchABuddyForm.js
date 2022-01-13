@@ -1,11 +1,9 @@
 import React, { Fragment, useState } from "react";
 import "../SearchABuddy/SearchABuddyForm.css";
-import { ProfileRepository } from "../../libs/repository/ProfileRepository";
 import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
 import "../../style.css";
 
-const SearchABuddyForm = (props) => {
-  const profileRepository = new ProfileRepository();
+const SearchABuddyForm = (props) => {  
   const blankGamingProfile = new BlankGamingProfile();
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
@@ -67,18 +65,9 @@ const SearchABuddyForm = (props) => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
-    //const searchedBuddies = profileRepository.findUser(gamingProfile);
-    console.debug("searching " + gamingProfile);
-    // if (searchedBuddies) {
-    // localStorage.removeItem("FoundBuddies");
-    // // searchRepository.save(searchedBuddies);
-    // localStorage.setItem("FoundBuddies", JSON.stringify(searchedBuddies));
-    // props.searchStatusTrue();
-    props.updateCriteria(gamingProfile);
-    // } else {
-    //   console.debug("No matches");
-    // }
+    event.preventDefault();    
+    // console.debug("searching " + gamingProfile);    
+    props.updateCriteria(gamingProfile);   
   };
   return (
     <Fragment>

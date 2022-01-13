@@ -1,14 +1,9 @@
 import React, { Fragment } from "react";
-//import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
 import { MyBuddiesRepository } from "../../libs/repository/MyBuddiesRepository";
 import "../SearchABuddy/SearchABuddyForm.css";
 import "../../style.css";
 
-const SearchABuddyTable = (props) => {
-  // const removeFoundUsers = () => {
-  //   localStorage.removeItem("FoundBuddies");
-  //   props.searchStatusFalse();
-  // };
+const SearchABuddyTable = (props) => {  
   const myBuddiesRepository = new MyBuddiesRepository();
   const addBuddy = (buddy) => {
     return () => {
@@ -16,9 +11,8 @@ const SearchABuddyTable = (props) => {
     };
   };
 
-  //const searchRepository = new SearchBuddyRepository();
-  //const foundBuddies = searchRepository.list();
-  const gameBuddy = props.list.map((item) => {
+
+  const gameBuddy = props.foundBuddies.map((item) => {
     return (
       <tr>
         <td>{item.gamebuddyUsername}</td>

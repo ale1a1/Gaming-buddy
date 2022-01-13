@@ -23,13 +23,13 @@ export class MyBuddiesRepository {
     );
   }
 
-  //   /**
-  //    *
-  //    * @param {string} email
-  //    */
-  //   delete(gamebuddyUsername) {
-  //     this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
-  //   }
+    /**
+     *
+     * @param {string} email
+     */
+    delete(gamebuddyUsername) {
+      this.repository.delete((x) => x.gamebuddyUsername !== gamebuddyUsername);
+    }
 
   // NOT IN USE FOR NOW!!!!!!!!!!!!!!!!!!!!
 
