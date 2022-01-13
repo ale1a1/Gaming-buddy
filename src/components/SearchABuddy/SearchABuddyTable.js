@@ -3,14 +3,17 @@ import { MyBuddiesRepository } from "../../libs/repository/MyBuddiesRepository";
 import "../SearchABuddy/SearchABuddyForm.css";
 import "../../style.css";
 
-const SearchABuddyTable = (props) => {  
+const SearchABuddyTable = (props) => {
   const myBuddiesRepository = new MyBuddiesRepository();
   const addBuddy = (buddy) => {
     return () => {
-      myBuddiesRepository.save(buddy);
+      console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
+      if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) !== null) {
+        // console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
+        myBuddiesRepository.save(buddy);
+      }
     };
   };
-
 
   const gameBuddy = props.foundBuddies.map((item) => {
     return (
