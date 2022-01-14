@@ -8,6 +8,8 @@ const SearchABuddyForm = (props) => {
 
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
 
+  // const [selectedValues
+
   const platformHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, platform: event.target.value };
@@ -68,6 +70,9 @@ const SearchABuddyForm = (props) => {
     event.preventDefault();    
     // console.debug("searching " + gamingProfile);    
     props.updateCriteria(gamingProfile);   
+    // console.log(props.currentUser)
+    // console.log(props.foundBuddies)
+    // console.log(props.foundBuddiesIncludingCurrentUser)
   };
   return (
     <Fragment>

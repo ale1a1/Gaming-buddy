@@ -8,9 +8,12 @@ const SearchABuddyTable = (props) => {
   const addBuddy = (buddy) => {
     return () => {
       console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
-      if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) !== null) {
-        // console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
+      if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) === undefined) {
         myBuddiesRepository.save(buddy);
+      } else {
+        alert(
+          "buddy already on your favourite...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
+        );
       }
     };
   };
