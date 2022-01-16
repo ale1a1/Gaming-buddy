@@ -1,7 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, RangeSlider } from "react";
 import "../SearchABuddy/SearchABuddyForm.css";
 // import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
 // import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
+import Slider, { Range } from "rc-slider";
+import "rc-slider/assets/index.css";
 import "../../style.css";
 
 const SearchABuddyForm = (props) => {
@@ -32,6 +34,7 @@ const SearchABuddyForm = (props) => {
 
     props.updateCriteria(gamingProfile);
   };
+
   const KdHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, kd: event.target.value };
@@ -86,6 +89,10 @@ const SearchABuddyForm = (props) => {
     props.toggleShowTable();
     props.updateCriteria(gamingProfile);
   };
+
+  const Slider = require("rc-slider");
+  const createSliderWithTooltip = Slider.createSliderWithTooltip;
+  const Range = createSliderWithTooltip(Slider.Range);
 
   return (
     <Fragment>
@@ -142,9 +149,12 @@ const SearchABuddyForm = (props) => {
               </div>
             </div>
             <div className="d-flex justify-content-around">
-              <div className="mb-3">
+              <div className="mb-3 w-25">
                 <label className="col-form-label cssBold">KD</label>
-                <select
+                <div>
+                  <Range min={0} max={10} step={0.5} defaultValue={[0, 10]}/>
+                </div>
+                {/* <select
                   className="form-select"
                   aria-label="select style"
                   onChange={KdHandler}
@@ -160,7 +170,7 @@ const SearchABuddyForm = (props) => {
                   <option value="1.5-2.5">1.5 - 2.5</option>
                   <option value="1.5-2.5">1.5 - 2.5</option>
                   <option value=">2.5">Over 2.5</option>
-                </select>
+                </select> */}
               </div>
               <div className="mb-3">
                 <label className="col-form-label cssBold">Game style</label>
