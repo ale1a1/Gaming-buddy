@@ -132,7 +132,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select role"
                   onChange={modeHandler}
-                  value={!props.criteria ? undefined : gamingProfile.gameMode}
+                  value={!props.criteria ? undefined : gamingProfile.mode}
                 >
                   <option value="Any">any</option>
                   <option value="Duos">Duos</option>
