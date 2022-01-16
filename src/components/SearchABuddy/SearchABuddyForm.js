@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import "../SearchABuddy/SearchABuddyForm.css";
-import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
-import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
+// import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
+// import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
 import "../../style.css";
 
 const SearchABuddyForm = (props) => {
@@ -11,14 +11,13 @@ const SearchABuddyForm = (props) => {
   // const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
   const [gamingProfile, setGamingProfile] = useState(props.criteria);
 
-
-
   const platformHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, platform: event.target.value };
     });
     props.updateCriteria(gamingProfile);
   };
+
   const mapHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, gameMap: event.target.value };
@@ -30,6 +29,7 @@ const SearchABuddyForm = (props) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, mode: event.target.value };
     });
+
     props.updateCriteria(gamingProfile);
   };
   const KdHandler = (event) => {
@@ -83,7 +83,7 @@ const SearchABuddyForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.toggleShowTable()    
+    props.toggleShowTable();
     props.updateCriteria(gamingProfile);
   };
 
@@ -216,7 +216,7 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select days"
                   onChange={daysHandler}
-                  value={!props.criteria ? undefined :gamingProfile.days}
+                  value={!props.criteria ? undefined : gamingProfile.days}
                   required
                 >
                   <option value="">select</option>

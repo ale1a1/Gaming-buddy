@@ -31,13 +31,13 @@ export class ProfileRepository {
   }) {
     return this.repository.get(
       (item) =>
-        (item.days === days || !days) &&
+        item.days === days &&
         item.gameMap === gameMap &&
         (item.gameStyle === gameStyle || !gameStyle) &&
         // item.kd === kd &&
         (item.lang === lang || !lang) &&
         item.mic === mic &&
-        item.mode === mode &&
+        (item.mode === mode || !mode) &&
         item.platform === platform &&
         item.time === time &&
         item.timeZone === timeZone
