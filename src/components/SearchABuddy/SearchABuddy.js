@@ -31,7 +31,7 @@ const SearchABuddy = (props) => {
     searchBuddyRepository.clear();
     searchBuddyRepository.save(criteria);
     setCriteria(criteria);
-    setShowTable(true);
+    // setShowTable(true);
   };
 
   const toggleShowTable = () => {
@@ -48,6 +48,8 @@ const SearchABuddy = (props) => {
             foundBuddies={foundBuddies}
             currentUser={currentUser}
             foundBuddiesIncludingCurrentUser={foundBuddiesIncludingCurrentUser}
+            criteria= {criteria}
+            toggleShowTable={toggleShowTable}
           />
         )}
         {showTable && (

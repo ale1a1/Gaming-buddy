@@ -5,6 +5,10 @@ export class SearchBuddyRepository {
     this.repository = new Repository("SearchBuddyCriteria");
   }
 
+  list() {
+    return this.repository.list();
+  }
+
   /**
    *
    * @param {User} user
