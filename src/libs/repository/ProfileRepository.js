@@ -21,7 +21,7 @@ export class ProfileRepository {
     days,
     gameMap,
     gameStyle,
-    // kd,
+    kd,
     lang,
     mic,
     mode,
@@ -33,11 +33,11 @@ export class ProfileRepository {
       (item) =>
         item.days === days &&
         item.gameMap === gameMap &&
-        (item.gameStyle === gameStyle || !gameStyle) &&
-        // item.kd === kd &&
-        (item.lang === lang || !lang) &&
+        (item.gameStyle === gameStyle || !!gameStyle) &&      
+        (item.kd > kd[0] && item.kd < kd[1]) &&
+        (item.lang === lang || !!lang) &&
         item.mic === mic &&
-        (item.mode === mode || !mode) &&
+        (item.mode === mode || !!mode) &&
         item.platform === platform &&
         item.time === time &&
         item.timeZone === timeZone

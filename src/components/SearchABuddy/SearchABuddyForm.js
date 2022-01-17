@@ -37,10 +37,11 @@ const SearchABuddyForm = (props) => {
 
   const KdHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, kd: event.target.value };
+      return { ...previousGamingProfileValues, kd: event };
     });
     props.updateCriteria(gamingProfile);
   };
+
 
   const gameStyleHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
@@ -86,7 +87,7 @@ const SearchABuddyForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.toggleShowTable();
+    props.toggleShowTable();    
     props.updateCriteria(gamingProfile);
   };
 
@@ -152,7 +153,14 @@ const SearchABuddyForm = (props) => {
               <div className="mb-3 w-25">
                 <label className="col-form-label cssBold">KD</label>
                 <div>
-                  <Range min={0} max={10} step={0.5} defaultValue={[0, 10]}/>
+                  <Range
+                    min={0}
+                    max={10}
+                    step={0.5}
+                    defaultValue={[0, 10]}
+                    onChange={KdHandler}                   
+                    value={!props.criteria ? undefined : gamingProfile.kd}
+                  />
                 </div>
                 {/* <select
                   className="form-select"

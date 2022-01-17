@@ -10,6 +10,7 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 import { LoginRepository } from "./libs/repository/LoginRepository";
+import { SearchBuddyRepository} from "./libs/repository/SearchBuddyRepository";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 
   
   const loginRepository = new LoginRepository();
+  const searchBuddyRepository= new SearchBuddyRepository();
 
 
   useEffect(() => {
@@ -30,6 +32,7 @@ function App() {
   const logoutHandler = () => {
     localStorage.removeItem("CurrentGamebuddyUser");
     setIsLoggedIn(false);
+    searchBuddyRepository.clear()
   };
 
 
