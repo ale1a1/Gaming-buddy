@@ -42,17 +42,27 @@ const SearchABuddy = (props) => {
     <Fragment>
       <div className="searchABuddy">
         <Navigation logoutHandler={props.logoutHandler} searchClass="active" />
-        {!showTable && (
+        {!props.isGamingProfileCreated && (
+          <div className="mt-5 text-light bg-dark">
+            <h1>
+              In order to search you need to create your own profile first!
+            </h1>
+            <button>
+              <a href="Profile">Click here to create your profile</a>
+            </button>
+          </div>
+        )}
+        {!showTable && props.isGamingProfileCreated && (
           <SearchABuddyForm
             updateCriteria={updateCriteria}
             foundBuddies={foundBuddies}
             currentUser={currentUser}
             foundBuddiesIncludingCurrentUser={foundBuddiesIncludingCurrentUser}
-            criteria= {criteria}
+            criteria={criteria}
             toggleShowTable={toggleShowTable}
           />
         )}
-        {showTable && (
+        {showTable && props.isGamingProfileCreated && (
           <SearchABuddyTable
             toggleShowTable={toggleShowTable}
             foundBuddies={foundBuddies}

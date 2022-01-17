@@ -15,6 +15,7 @@ import { SearchBuddyRepository} from "./libs/repository/SearchBuddyRepository";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isGamingProfileCreated, setIsGamingProfileCreated] = useState(false)
 
   
   const loginRepository = new LoginRepository();
@@ -35,6 +36,18 @@ function App() {
     searchBuddyRepository.clear()
   };
 
+  const gamingProfileCreatedSwitch = () => {
+    setIsGamingProfileCreated(true)    
+    localStorage.setItem("gamingProfileToken", JSON.stringify("Created"));
+  }
+  
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("gamingProfileToken"))) {
+      setIsGamingProfileCreated(true);
+    } else {
+      setIsGamingProfileCreated(false);
+    }
+  }, []);
 
 
   // This component is rendered with the class component, the others with the function load page
@@ -52,13 +65,13 @@ function App() {
             path="/Search"
             element={loadPage(
               isLoggedIn,
-              <SearchABuddy logoutHandler={logoutHandler} />
+              <SearchABuddy isGamingProfileCreated={isGamingProfileCreated} logoutHandler={logoutHandler} />
             )}
           ></Route>
           <Route
             path="/Messages"
             element={loadPage(
-              loadPage,
+              isLoggedIn,
               <MyMessages logoutHandler={logoutHandler} />
             )}
           ></Route>
@@ -73,7 +86,7 @@ function App() {
             path="/Profile"
             element={loadPage(
               isLoggedIn,
-              <MyProfile logoutHandler={logoutHandler} />
+              <MyProfile gamingProfileCreatedSwitch= {gamingProfileCreatedSwitch} logoutHandler={logoutHandler} />
             )}
           ></Route>
           <Route path="*" element={<ErrorPage />}></Route>
