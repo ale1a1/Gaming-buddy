@@ -69,10 +69,10 @@ const MyProfileForm = (props) => {
     });
   };
 
-  const submitHandler = (event) => {    
+  const submitHandler = (event) => {
     const gamebuddyUsername = loginRepository.list()[0];
     profileRepository.delete(gamebuddyUsername);
-    const storedSignupValues = signupRepository.list();   
+    const storedSignupValues = signupRepository.list();
     storedSignupValues.filter((item) => {
       if (item.gamebuddyUsername === gamebuddyUsername) {
         const updateGamingProfile = {
@@ -83,7 +83,7 @@ const MyProfileForm = (props) => {
           warzoneUsername: item.warzoneUsername,
         };
         profileRepository.save(updateGamingProfile);
-        props.gamingProfileCreatedSwitch()
+        props.gamingProfileCreatedSwitch();
       }
       return item.gamebuddyUsername === gamebuddyUsername;
     });
@@ -112,7 +112,8 @@ const MyProfileForm = (props) => {
               ></button>
             </div>
             <div className="modal-body">
-              <form onSubmit={submitHandler}>
+              {/* <form onSubmit={submitHandler}> */}
+              <form>
                 <div className="mb-3">
                   <label className="col-form-label cssBold">Platform</label>
                   <select
@@ -283,7 +284,13 @@ const MyProfileForm = (props) => {
                   >
                     Close
                   </button>
-                  <button className="btn btn-primary" type="submit">
+                  {/* <button className="btn btn-primary" type="submit"> */}
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    data-bs-dismiss="modal"
+                    onClick={submitHandler}
+                  >
                     {props.submitButton}
                   </button>
                 </div>
