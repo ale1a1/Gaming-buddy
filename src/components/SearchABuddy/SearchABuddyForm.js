@@ -160,6 +160,7 @@ const SearchABuddyForm = (props) => {
                     defaultValue={[0, 10]}
                     onChange={KdHandler}                   
                     value={!props.criteria ? undefined : gamingProfile.kd}
+                    // value={!props.criteria ? [0,10] : gamingProfile.kd}
                   />
                 </div>
                 {/* <select
