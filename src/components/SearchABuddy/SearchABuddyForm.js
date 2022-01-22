@@ -14,7 +14,7 @@ const SearchABuddyForm = (props) => {
     platform: "",
     gameMap: "",
     mode: "any",
-    // kd:"",
+    kd: [0,10],
     gameStyle: "any",
     mic: "",
     lang: "any",
@@ -129,7 +129,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select platform"
                   aria-label="select platform"
                   onChange={platformHandler}
-                  value={!props.criteria ? undefined : gamingProfile.platform}
+                  // value={!props.criteria ? undefined : gamingProfile.platform}
+                  value={gamingProfile.platform}
                   required
                 >
                   <option value="">select</option>
@@ -144,7 +145,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select game"
                   onChange={mapHandler}
-                  value={!props.criteria ? undefined : gamingProfile.gameMap}
+                  // value={!props.criteria ? undefined : gamingProfile.gameMap}
+                  value={gamingProfile.gameMap}
                   required
                 >
                   <option value="">select</option>
@@ -160,7 +162,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select role"
                   onChange={modeHandler}
-                  value={!props.criteria ? undefined : gamingProfile.mode}
+                  // value={!props.criteria ? undefined : gamingProfile.mode}
+                  value={gamingProfile.mode}
                 >
                   <option value="any">any</option>
                   <option value="Duos">Duos</option>
@@ -180,7 +183,7 @@ const SearchABuddyForm = (props) => {
                     defaultValue={[0, 10]}
                     onChange={KdHandler}
                     // value={!props.criteria ? undefined : gamingProfile.kd}
-                    // value={!props.criteria ? [0,10] : gamingProfile.kd}
+                    value={gamingProfile.kd}                   
                   />
                 </div>
                 {/* <select
@@ -207,7 +210,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select style"
                   onChange={gameStyleHandler}
-                  value={!props.criteria ? undefined : gamingProfile.gameStyle}
+                  // value={!props.criteria ? undefined : gamingProfile.gameStyle}
+                  value={gamingProfile.gameStyle}
                 >
                   <option value="any">any</option>
                   <option value="Casual">Casual</option>
@@ -224,7 +228,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select microphone"
                   onChange={micHandler}
-                  value={!props.criteria ? undefined : gamingProfile.mic}
+                  // value={!props.criteria ? undefined : gamingProfile.mic}
+                  value={gamingProfile.mic}
                   required
                 >
                   <option value="">select</option>
@@ -240,7 +245,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select language"
                   onChange={langHandler}
-                  value={!props.criteria ? undefined : gamingProfile.lang}
+                  // value={!props.criteria ? undefined : gamingProfile.lang}
+                  value={gamingProfile.lang}
                 >
                   <option value="any">any</option>
                   <option value="English">English</option>
@@ -255,7 +261,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select days"
                   onChange={daysHandler}
-                  value={!props.criteria ? undefined : gamingProfile.days}
+                  // value={!props.criteria ? undefined : gamingProfile.days}
+                  value={gamingProfile.days}
                   required
                 >
                   <option value="">select</option>
@@ -269,7 +276,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select time"
                   onChange={timeHandler}
-                  value={!props.criteria ? undefined : gamingProfile.time}
+                  // value={!props.criteria ? undefined : gamingProfile.time}
+                  value={gamingProfile.time}
                   required
                 >
                   <option value="">select</option>
@@ -283,7 +291,8 @@ const SearchABuddyForm = (props) => {
                   className="form-select"
                   aria-label="select platform"
                   onChange={timeZoneHandler}
-                  value={!props.criteria ? undefined : gamingProfile.timeZone}
+                  // value={!props.criteria ? undefined : gamingProfile.timeZone}
+                  value={gamingProfile.timeZone}
                   required
                 >
                   <option value="">select</option>
