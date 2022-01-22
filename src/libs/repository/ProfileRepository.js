@@ -21,7 +21,8 @@ export class ProfileRepository {
     days,
     gameMap,
     gameStyle,
-    // kd,
+    kdMin,
+    kdMax,
     lang,
     mic,
     mode,
@@ -32,6 +33,7 @@ export class ProfileRepository {
     return this.repository.get(
       (item) =>
         item.days === days &&
+        (item.kd > kdMin && item.kd < kdMax) &&
         item.gameMap === gameMap &&
         // (item.gameStyle === gameStyle || !!gameStyle) &&
         (gameStyle !== "any"
@@ -40,8 +42,7 @@ export class ProfileRepository {
             "Aggressive pusher" ||
             "Strategic" ||
             "Strategic sniper" ||
-            "Camper") &&
-        // (item.kd > kd[0] && item.kd < kd[1]) &&
+            "Camper") &&        
         // (item.lang === lang || !!lang) &&
         (lang !== "any"
           ? item.lang === lang

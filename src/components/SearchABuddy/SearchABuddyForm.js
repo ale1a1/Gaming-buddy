@@ -14,7 +14,8 @@ const SearchABuddyForm = (props) => {
     platform: "",
     gameMap: "",
     mode: "any",
-    kd: [0, 10],
+    kdMin: [0],
+    kdMax: [10],
     gameStyle: "any",
     mic: "",
     lang: "any",
@@ -58,7 +59,11 @@ const SearchABuddyForm = (props) => {
 
   const KdHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
-      return { ...previousGamingProfileValues, kd: event };
+      return {
+        ...previousGamingProfileValues,
+        kdMin: event[0],
+        kdMax: event[1],
+      };
     });
     // props.updateCriteria(gamingProfile);
   };
@@ -182,7 +187,7 @@ const SearchABuddyForm = (props) => {
                     defaultValue={[0, 10]}
                     onChange={KdHandler}
                     // value={!props.criteria ? undefined : gamingProfile.kd}
-                    value={gamingProfile.kd}
+                    value={[gamingProfile.kdMin, gamingProfile.kdMax]}
                   />
                 </div>
                 {/* <select
