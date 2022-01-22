@@ -144,7 +144,7 @@ const MyProfileForm = (props) => {
                     <option value="Caldera">Caldera</option>
                     <option value="Caldera Vanguard">Caldera Vanguard</option>
                     <option value="Rebirth">Rebirth</option>
-                    <option value="Rebirth">Plunder</option>
+                    <option value="Plunder">Plunder</option>
                   </select>
                 </div>
                 <div className="mb-3">
@@ -171,7 +171,9 @@ const MyProfileForm = (props) => {
                     id="inputNumber"
                     name="inputNumber"
                     onChange={KdHandler}
-                    step="0.01"
+                    min={0}
+                    max={10}
+                    step="0.25"
                     required
                   ></input>
                 </div>

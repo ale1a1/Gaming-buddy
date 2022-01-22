@@ -157,7 +157,7 @@ const SearchABuddyForm = (props) => {
                   <option value="Caldera">Caldera</option>
                   <option value="Caldera Vanguard">Caldera Vanguard</option>
                   <option value="Rebirth">Rebirth</option>
-                  <option value="Rebirth">Plunder</option>
+                  <option value="Plunder">Plunder</option>
                 </select>
               </div>
               <div className="mb-3">
