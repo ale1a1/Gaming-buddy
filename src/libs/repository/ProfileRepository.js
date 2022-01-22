@@ -33,11 +33,24 @@ export class ProfileRepository {
       (item) =>
         item.days === days &&
         item.gameMap === gameMap &&
-        (item.gameStyle === gameStyle || !!gameStyle) &&      
+        // (item.gameStyle === gameStyle || !!gameStyle) &&
+        (gameStyle !== "any"
+          ? item.gameStyle === gameStyle
+          : item.gameStyle === "Casual" ||
+            "Aggressive pusher" ||
+            "Strategic" ||
+            "Strategic sniper" ||
+            "Camper") &&
         // (item.kd > kd[0] && item.kd < kd[1]) &&
-        (item.lang === lang || !!lang) &&
+        // (item.lang === lang || !!lang) &&
+        (lang !== "any"
+          ? item.lang === lang
+          : item.lang === "English" || "Spanish" || "French") &&
         item.mic === mic &&
-        (item.mode === mode || !!mode) &&
+        // (item.mode === mode || !!mode) &&
+        (mode !== "any"
+          ? item.mode === mode
+          : item.mode === "Duos" || "Trios" || "Quads") &&
         item.platform === platform &&
         item.time === time &&
         item.timeZone === timeZone

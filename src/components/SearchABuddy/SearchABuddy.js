@@ -32,6 +32,7 @@ const SearchABuddy = (props) => {
   const [criteriaState, setCriteria] = useState(criteria);
 
   const currentUser = loginRepository.list()[0];
+
   const foundBuddiesIncludingCurrentUser = profileRepository.findUser(
     criteriaState || {}
   );

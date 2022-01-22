@@ -14,7 +14,7 @@ const SearchABuddyForm = (props) => {
     platform: "",
     gameMap: "",
     mode: "any",
-    kd: [0,10],
+    kd: [0, 10],
     gameStyle: "any",
     mic: "",
     lang: "any",
@@ -26,7 +26,6 @@ const SearchABuddyForm = (props) => {
   const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
   // const [gamingProfile, setGamingProfile] = useState(props.criteria);
 
-  
   useEffect(() => {
     if (searchBuddyRepository.findOne()) {
       setGamingProfile(props.criteria);
@@ -38,7 +37,7 @@ const SearchABuddyForm = (props) => {
   const platformHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, platform: event.target.value };
-    });  
+    });
     // setGamingProfile(props.criteria)
   };
 
@@ -183,7 +182,7 @@ const SearchABuddyForm = (props) => {
                     defaultValue={[0, 10]}
                     onChange={KdHandler}
                     // value={!props.criteria ? undefined : gamingProfile.kd}
-                    value={gamingProfile.kd}                   
+                    value={gamingProfile.kd}
                   />
                 </div>
                 {/* <select
