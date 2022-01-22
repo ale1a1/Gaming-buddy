@@ -14,7 +14,21 @@ const SearchABuddy = (props) => {
   const profileRepository = new ProfileRepository();
   const loginRepository = new LoginRepository();
 
+  // const defaultCriteria = {
+  //   platform: "select",
+  //   gameMap: "select",
+  //   mode: "any",
+  //   // kd: "",
+  //   gameStyle: "any",
+  //   mic: "select",
+  //   lang: "any",
+  //   days: "select",
+  //   time: "select",
+  //   timeZone: "select",
+  // };
+
   const criteria = searchBuddyRepository.findOne();
+  // const criteria = defaultCriteria;
   const [criteriaState, setCriteria] = useState(criteria);
 
   const currentUser = loginRepository.list()[0];

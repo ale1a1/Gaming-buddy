@@ -1,30 +1,52 @@
-import React, { Fragment, useState, RangeSlider } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "../SearchABuddy/SearchABuddyForm.css";
 // import { BlankGamingProfile } from "../../libs/models/BlankGamingProfile";
-// import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
+import { SearchBuddyRepository } from "../../libs/repository/SearchBuddyRepository";
 import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
 import "../../style.css";
 
 const SearchABuddyForm = (props) => {
   // const blankGamingProfile = new BlankGamingProfile();
-  // const searchBuddyRepository = new SearchBuddyRepository();
+  const searchBuddyRepository = new SearchBuddyRepository();
 
-  // const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
-  const [gamingProfile, setGamingProfile] = useState(props.criteria);
+  const blankGamingProfile = {
+    platform: "",
+    gameMap: "",
+    mode: "any",
+    // kd:"",
+    gameStyle: "any",
+    mic: "",
+    lang: "any",
+    days: "",
+    time: "",
+    timeZone: "",
+  };
+
+  const [gamingProfile, setGamingProfile] = useState(blankGamingProfile);
+  // const [gamingProfile, setGamingProfile] = useState(props.criteria);
+
+  
+  useEffect(() => {
+    if (searchBuddyRepository.findOne()) {
+      setGamingProfile(props.criteria);
+    } else {
+      setGamingProfile(blankGamingProfile);
+    }
+  }, []);
 
   const platformHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, platform: event.target.value };
-    });
-    props.updateCriteria(gamingProfile);
+    });  
+    // setGamingProfile(props.criteria)
   };
 
   const mapHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, gameMap: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const modeHandler = (event) => {
@@ -32,62 +54,61 @@ const SearchABuddyForm = (props) => {
       return { ...previousGamingProfileValues, mode: event.target.value };
     });
 
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const KdHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, kd: event };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
-
 
   const gameStyleHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, gameStyle: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const micHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, mic: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const langHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, lang: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const daysHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, days: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const timeHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, time: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const timeZoneHandler = (event) => {
     setGamingProfile((previousGamingProfileValues) => {
       return { ...previousGamingProfileValues, timeZone: event.target.value };
     });
-    props.updateCriteria(gamingProfile);
+    // props.updateCriteria(gamingProfile);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.toggleShowTable();    
+    props.toggleShowTable();
     props.updateCriteria(gamingProfile);
   };
 
@@ -108,7 +129,6 @@ const SearchABuddyForm = (props) => {
                   className="form-select platform"
                   aria-label="select platform"
                   onChange={platformHandler}
-                  // value={!props.criteria ? undefined : props.criteria.platform}
                   value={!props.criteria ? undefined : gamingProfile.platform}
                   required
                 >
@@ -142,7 +162,7 @@ const SearchABuddyForm = (props) => {
                   onChange={modeHandler}
                   value={!props.criteria ? undefined : gamingProfile.mode}
                 >
-                  <option value="Any">any</option>
+                  <option value="any">any</option>
                   <option value="Duos">Duos</option>
                   <option value="Trios">Trios</option>
                   <option value="Quads">Quads</option>
@@ -158,8 +178,8 @@ const SearchABuddyForm = (props) => {
                     max={10}
                     step={0.5}
                     defaultValue={[0, 10]}
-                    onChange={KdHandler}                   
-                    value={!props.criteria ? undefined : gamingProfile.kd}
+                    onChange={KdHandler}
+                    // value={!props.criteria ? undefined : gamingProfile.kd}
                     // value={!props.criteria ? [0,10] : gamingProfile.kd}
                   />
                 </div>
@@ -189,7 +209,7 @@ const SearchABuddyForm = (props) => {
                   onChange={gameStyleHandler}
                   value={!props.criteria ? undefined : gamingProfile.gameStyle}
                 >
-                  <option value="Any">any</option>
+                  <option value="any">any</option>
                   <option value="Casual">Casual</option>
                   <option value="Aggressive pusher">Aggressive pusher</option>
                   <option value="Strategic">Strategic</option>
