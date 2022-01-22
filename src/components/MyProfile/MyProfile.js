@@ -38,7 +38,7 @@ const MyProfile = (props) => {
           CREATE PROFILE
         </button>
       </div>
-      <MyProfileForm gamingProfileCreatedSwitch={props.gamingProfileCreatedSwitch} submitButton="Create profile" onSubmitSwitcher="Create" />
+      <MyProfileForm /*gamingProfileCreatedSwitch={props.gamingProfileCreatedSwitch}*/ submitButton="Create profile" onSubmitSwitcher="Create" />
     </header>
   );
 

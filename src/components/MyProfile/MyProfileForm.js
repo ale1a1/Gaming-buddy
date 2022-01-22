@@ -83,7 +83,7 @@ const MyProfileForm = (props) => {
           warzoneUsername: item.warzoneUsername,
         };
         profileRepository.save(updateGamingProfile);
-        props.gamingProfileCreatedSwitch();
+        // props.gamingProfileCreatedSwitch();
       }
       return item.gamebuddyUsername === gamebuddyUsername;
     });

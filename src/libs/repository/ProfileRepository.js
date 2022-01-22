@@ -33,7 +33,8 @@ export class ProfileRepository {
     return this.repository.get(
       (item) =>
         item.days === days &&
-        (item.kd > kdMin && item.kd < kdMax) &&
+        item.kd > kdMin &&
+        item.kd < kdMax &&
         item.gameMap === gameMap &&
         // (item.gameStyle === gameStyle || !!gameStyle) &&
         (gameStyle !== "any"
@@ -42,7 +43,7 @@ export class ProfileRepository {
             "Aggressive pusher" ||
             "Strategic" ||
             "Strategic sniper" ||
-            "Camper") &&        
+            "Camper") &&
         // (item.lang === lang || !!lang) &&
         (lang !== "any"
           ? item.lang === lang
@@ -55,6 +56,12 @@ export class ProfileRepository {
         item.platform === platform &&
         item.time === time &&
         item.timeZone === timeZone
+    );
+  }
+
+  findCurrentGamebuddyUser(currentGamebuddyUser) {
+    return this.repository.get(
+      (item) => item.gamebuddyUsername === currentGamebuddyUser
     );
   }
 
