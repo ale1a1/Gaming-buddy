@@ -12,9 +12,10 @@ const SearchABuddyTable = (props) => {
         myBuddiesRepository.save(buddy);
       } else {
         alert(
-          "buddy already on your favourite...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
+          "buddy already on your favourites...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
         );
       }
+      //questo else verra cancellato credo, quando mostrerai nel bottone (disativato) se un un user è gia in lista favoriti
     };
   };
 
@@ -32,8 +33,7 @@ const SearchABuddyTable = (props) => {
         <td>{item.days}</td>
         <td>{item.time}</td>
         <td>{item.timeZone}</td>
-        <td>
-          {" "}
+        <td>          
           <button
             onClick={addBuddy(item)}
             className="btn btn-outline-light background"
