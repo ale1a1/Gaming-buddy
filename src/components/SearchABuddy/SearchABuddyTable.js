@@ -7,42 +7,71 @@ const SearchABuddyTable = (props) => {
   const myBuddiesRepository = new MyBuddiesRepository();
   const addBuddy = (buddy) => {
     return () => {
-      console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
-      if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) === undefined) {
+      // console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
+      // if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) === undefined) {
         myBuddiesRepository.save(buddy);
-      } else {
-        alert(
-          "buddy already on your favourites...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
-        );
-      }
+      // } else {
+      //   alert(
+      //     "buddy already on your favourites...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
+      //   );
+      // }
       //questo else verra cancellato credo, quando mostrerai nel bottone (disativato) se un un user è gia in lista favoriti
     };
   };
 
   const gameBuddy = props.foundBuddies.map((item) => {
-    return (
-      <tr>
-        <td>{item.gamebuddyUsername}</td>
-        <td>{item.warzoneUsername}</td>
-        <td>{item.platform}</td>
-        <td>{item.gameMap}</td>
-        <td>{item.mode}</td>
-        <td>{item.kd}</td>
-        <td>{item.gameStyle}</td>
-        <td>{item.lang}</td>
-        <td>{item.days}</td>
-        <td>{item.time}</td>
-        <td>{item.timeZone}</td>
-        <td>          
-          <button
-            onClick={addBuddy(item)}
-            className="btn btn-outline-light background"
-          >
-            Add to my buddies list
-          </button>
-        </td>
-      </tr>
-    );
+    const alreadyBuddy= myBuddiesRepository.findUser(item.gamebuddyUsername);
+    if (alreadyBuddy) {
+      return (
+        <tr>
+          <td>{item.gamebuddyUsername}</td>
+          <td>{item.warzoneUsername}</td>
+          <td>{item.platform}</td>
+          <td>{item.gameMap}</td>
+          <td>{item.mode}</td>
+          <td>{item.kd}</td>
+          <td>{item.gameStyle}</td>
+          <td>{item.lang}</td>
+          <td>{item.days}</td>
+          <td>{item.time}</td>
+          <td>{item.timeZone}</td>
+          <td>          
+            <button
+              onClick={addBuddy(item)}
+              className="btn btn-outline-light background"
+              disabled
+            >
+              already on my list
+            </button>
+          </td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr>
+          <td>{item.gamebuddyUsername}</td>
+          <td>{item.warzoneUsername}</td>
+          <td>{item.platform}</td>
+          <td>{item.gameMap}</td>
+          <td>{item.mode}</td>
+          <td>{item.kd}</td>
+          <td>{item.gameStyle}</td>
+          <td>{item.lang}</td>
+          <td>{item.days}</td>
+          <td>{item.time}</td>
+          <td>{item.timeZone}</td>
+          <td>          
+            <button
+              onClick={addBuddy(item)}
+              className="btn btn-outline-light background"
+            >
+              Add to my buddies list
+            </button>
+          </td>
+        </tr>
+      );
+    }
+
   });
 
   return (
