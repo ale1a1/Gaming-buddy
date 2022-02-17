@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { MyBuddiesRepository } from "../../libs/repository/MyBuddiesRepository";
 import "../SearchABuddy/SearchABuddyForm.css";
 import "../../style.css";
@@ -9,9 +9,67 @@ const SearchABuddyTable = (props) => {
     return () => {
       // console.log(myBuddiesRepository.findUser(buddy.gamebuddyUsername));
       // if (myBuddiesRepository.findUser(buddy.gamebuddyUsername) === undefined) {
-        myBuddiesRepository.save(buddy);
+      myBuddiesRepository.save(buddy);
+      const updatedGameBuddies = props.foundBuddies.map((item) => {
+        const alreadyBuddy = myBuddiesRepository.findUser(
+          item.gamebuddyUsername
+        );
+        if (alreadyBuddy) {
+          return (
+            <tr>
+              <td>{item.gamebuddyUsername}</td>
+              <td>{item.warzoneUsername}</td>
+              <td>{item.platform}</td>
+              <td>{item.gameMap}</td>
+              <td>{item.mode}</td>
+              <td>{item.kd}</td>
+              <td>{item.gameStyle}</td>
+              <td>{item.lang}</td>
+              <td>{item.days}</td>
+              <td>{item.time}</td>
+              <td>{item.timeZone}</td>
+              <td>
+                <button
+                  onClick={addBuddy(item)}
+                  className="btn btn-outline-light background"
+                  disabled
+                >
+                  already on my list
+                </button>
+              </td>
+            </tr>
+          );
+        } else {
+          return (
+            <tr>
+              <td>{item.gamebuddyUsername}</td>
+              <td>{item.warzoneUsername}</td>
+              <td>{item.platform}</td>
+              <td>{item.gameMap}</td>
+              <td>{item.mode}</td>
+              <td>{item.kd}</td>
+              <td>{item.gameStyle}</td>
+              <td>{item.lang}</td>
+              <td>{item.days}</td>
+              <td>{item.time}</td>
+              <td>{item.timeZone}</td>
+              <td>
+                <button
+                  onClick={addBuddy(item)}
+                  className="btn btn-outline-light background"
+                >
+                  Add to my buddies list
+                </button>
+              </td>
+            </tr>
+          );
+        }
+      });
+      setGameBuddies(updatedGameBuddies);
+      console.log(gameBuddies);
+      console.log(gameBuddy);
+      console.log(updatedGameBuddies);
       // } else {
-      //   alert(
       //     "buddy already on your favourites...fucking implement the table so the button will get disactivated and the text will say already my buddy instead of add"
       //   );
       // }
@@ -20,7 +78,7 @@ const SearchABuddyTable = (props) => {
   };
 
   const gameBuddy = props.foundBuddies.map((item) => {
-    const alreadyBuddy= myBuddiesRepository.findUser(item.gamebuddyUsername);
+    const alreadyBuddy = myBuddiesRepository.findUser(item.gamebuddyUsername);
     if (alreadyBuddy) {
       return (
         <tr>
@@ -35,7 +93,7 @@ const SearchABuddyTable = (props) => {
           <td>{item.days}</td>
           <td>{item.time}</td>
           <td>{item.timeZone}</td>
-          <td>          
+          <td>
             <button
               onClick={addBuddy(item)}
               className="btn btn-outline-light background"
@@ -60,7 +118,7 @@ const SearchABuddyTable = (props) => {
           <td>{item.days}</td>
           <td>{item.time}</td>
           <td>{item.timeZone}</td>
-          <td>          
+          <td>
             <button
               onClick={addBuddy(item)}
               className="btn btn-outline-light background"
@@ -71,8 +129,9 @@ const SearchABuddyTable = (props) => {
         </tr>
       );
     }
-
   });
+
+  const [gameBuddies, setGameBuddies] = useState(gameBuddy);
 
   return (
     <Fragment>
@@ -92,7 +151,7 @@ const SearchABuddyTable = (props) => {
             <th>Time zone</th>
           </tr>
         </thead>
-        <tbody>{gameBuddy}</tbody>
+        <tbody>{gameBuddies}</tbody>
       </table>
       <button
         onClick={props.toggleShowTable}
